@@ -15,19 +15,19 @@ import javax.swing.JTextField;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 
-public class GerenciarUsuario2 extends JFrame {
+public class TelaGerenciarUsuario2 extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField txtNome;
+	private JTextField txtCPF;
+	private JTextField txtRua;
+	private JTextField txtNumero;
+	private JTextField txtCidade;
+	private JTextField txtEstado;
+	private JTextField txtTelefone;
+	private JTextField txtCelular;
+	private JTextField txtBairro;
+	private JTextField txtSenha;
 
 	/**
 	 * Launch the application.
@@ -36,7 +36,7 @@ public class GerenciarUsuario2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GerenciarUsuario2 frame = new GerenciarUsuario2();
+					TelaGerenciarUsuario2 frame = new TelaGerenciarUsuario2();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +48,8 @@ public class GerenciarUsuario2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GerenciarUsuario2() {
+	public TelaGerenciarUsuario2() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 700);
 		contentPane = new JPanel();
@@ -72,109 +73,109 @@ public class GerenciarUsuario2 extends JFrame {
 		lblPrivilgio.setBounds(82, 99, 98, 32);
 		contentPane.add(lblPrivilgio);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(216, 109, 111, 20);
-		contentPane.add(comboBox);
+		JComboBox cbPrivilegio = new JComboBox();
+		cbPrivilegio.setBounds(216, 109, 111, 20);
+		contentPane.add(cbPrivilegio);
 		
 		JLabel label_2 = new JLabel("Nome*");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		label_2.setBounds(82, 185, 98, 32);
 		contentPane.add(label_2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(216, 195, 273, 20);
-		contentPane.add(textField);
+		txtNome = new JTextField();
+		txtNome.setColumns(10);
+		txtNome.setBounds(216, 195, 273, 20);
+		contentPane.add(txtNome);
 		
 		JLabel lblCpf = new JLabel("CPF*");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCpf.setBounds(82, 142, 98, 32);
 		contentPane.add(lblCpf);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(216, 152, 111, 20);
-		contentPane.add(textField_1);
+		txtCPF = new JTextField();
+		txtCPF.setColumns(10);
+		txtCPF.setBounds(216, 152, 111, 20);
+		contentPane.add(txtCPF);
 		
 		JLabel lblRua = new JLabel("Rua*");
 		lblRua.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblRua.setBounds(82, 304, 124, 32);
 		contentPane.add(lblRua);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(223, 314, 273, 20);
-		contentPane.add(textField_2);
+		txtRua = new JTextField();
+		txtRua.setColumns(10);
+		txtRua.setBounds(223, 314, 273, 20);
+		contentPane.add(txtRua);
 		
 		JLabel lblNmero = new JLabel("N\u00FAmero*");
 		lblNmero.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNmero.setBounds(507, 304, 124, 32);
 		contentPane.add(lblNmero);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(605, 314, 61, 20);
-		contentPane.add(textField_3);
+		txtNumero = new JTextField();
+		txtNumero.setColumns(10);
+		txtNumero.setBounds(605, 314, 61, 20);
+		contentPane.add(txtNumero);
 		
 		JLabel lblBairro = new JLabel("Cidade*");
 		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblBairro.setBounds(82, 390, 124, 32);
 		contentPane.add(lblBairro);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(223, 400, 273, 20);
-		contentPane.add(textField_4);
+		txtCidade = new JTextField();
+		txtCidade.setColumns(10);
+		txtCidade.setBounds(223, 400, 273, 20);
+		contentPane.add(txtCidade);
 		
 		JLabel lblEstado = new JLabel("Estado*");
 		lblEstado.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblEstado.setBounds(82, 434, 124, 32);
 		contentPane.add(lblEstado);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(223, 444, 273, 20);
-		contentPane.add(textField_5);
+		txtEstado = new JTextField();
+		txtEstado.setColumns(10);
+		txtEstado.setBounds(223, 444, 273, 20);
+		contentPane.add(txtEstado);
 		
 		JLabel lblTelefone = new JLabel("Telefone*");
 		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTelefone.setBounds(82, 478, 124, 32);
 		contentPane.add(lblTelefone);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(223, 488, 137, 20);
-		contentPane.add(textField_6);
+		txtTelefone = new JTextField();
+		txtTelefone.setColumns(10);
+		txtTelefone.setBounds(223, 488, 137, 20);
+		contentPane.add(txtTelefone);
 		
 		JLabel lblCelular = new JLabel("Celular");
 		lblCelular.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCelular.setBounds(82, 518, 124, 32);
 		contentPane.add(lblCelular);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(223, 528, 137, 20);
-		contentPane.add(textField_7);
+		txtCelular = new JTextField();
+		txtCelular.setColumns(10);
+		txtCelular.setBounds(223, 528, 137, 20);
+		contentPane.add(txtCelular);
 		
 		JLabel lblCidade = new JLabel("Bairro*");
 		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCidade.setBounds(82, 347, 124, 32);
 		contentPane.add(lblCidade);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(223, 357, 273, 20);
-		contentPane.add(textField_8);
+		txtBairro = new JTextField();
+		txtBairro.setColumns(10);
+		txtBairro.setBounds(223, 357, 273, 20);
+		contentPane.add(txtBairro);
 		
 		JLabel lblSenha = new JLabel("Senha*");
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblSenha.setBounds(82, 226, 98, 32);
 		contentPane.add(lblSenha);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(216, 236, 111, 20);
-		contentPane.add(textField_9);
+		txtSenha = new JTextField();
+		txtSenha.setColumns(10);
+		txtSenha.setBounds(216, 236, 111, 20);
+		contentPane.add(txtSenha);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(63, 80, 653, 198);
@@ -184,12 +185,12 @@ public class GerenciarUsuario2 extends JFrame {
 		tabbedPane_1.setBounds(63, 297, 653, 264);
 		contentPane.add(tabbedPane_1);
 		
-		JButton btnNewButton = new JButton("Confirmar");
-		btnNewButton.setBounds(272, 604, 98, 23);
-		contentPane.add(btnNewButton);
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setBounds(272, 604, 98, 23);
+		contentPane.add(btnConfirmar);
 		
-		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.setBounds(436, 604, 105, 23);
-		contentPane.add(btnNewButton_1);
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(436, 604, 105, 23);
+		contentPane.add(btnCancelar);
 	}
 }

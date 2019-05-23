@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
-public class Venda extends JFrame {
+public class TelaVenda extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -24,7 +24,7 @@ public class Venda extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Venda frame = new Venda();
+					TelaVenda frame = new TelaVenda();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class Venda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Venda() {
+	public TelaVenda() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();

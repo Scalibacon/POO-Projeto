@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -8,12 +9,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTable;
+import javax.swing.JMenuBar;
+import javax.swing.JButton;
 
-public class GerenciarVendas extends JFrame {
+public class TelaRelatorio extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -22,7 +23,7 @@ public class GerenciarVendas extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GerenciarVendas frame = new GerenciarVendas();
+					TelaRelatorio frame = new TelaRelatorio();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +35,7 @@ public class GerenciarVendas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GerenciarVendas() {
+	public TelaRelatorio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -47,13 +48,17 @@ public class GerenciarVendas extends JFrame {
 		panel.setBounds(0, 0, 795, 50);
 		contentPane.add(panel);
 		
-		JLabel lblGerenciamentoDeVendas = new JLabel("GERENCIAMENTO DE VENDAS");
-		lblGerenciamentoDeVendas.setForeground(Color.WHITE);
-		lblGerenciamentoDeVendas.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		panel.add(lblGerenciamentoDeVendas);
+		JLabel lblRelatrios = new JLabel("RELAT\u00D3RIOS");
+		lblRelatrios.setForeground(Color.WHITE);
+		lblRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 38));
+		panel.add(lblRelatrios);
 		
-		table = new JTable();
-		table.setBounds(0, 103, 784, 409);
-		contentPane.add(table);
+		JButton btnNewButton = new JButton("Produtos mais vendidos");
+		btnNewButton.setBounds(298, 122, 203, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnPorPerodo = new JButton("Por per\u00EDodo");
+		btnPorPerodo.setBounds(298, 226, 203, 23);
+		contentPane.add(btnPorPerodo);
 	}
 }
