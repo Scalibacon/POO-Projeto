@@ -72,4 +72,15 @@ public class Estoquista {
 	private String celular;
 	private String senha;
 	
+	public void alterar(){
+		
+	}
+	
+	public void estocar(){
+		
+	}
+	
+	public void excluir(){
+		
+	}
 }
