@@ -30,6 +30,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 	private JPanel contentPane;
 	private JLabel lblNome;
 	private JTable table;
+	private JButton btnFinalizar;
 	private JTextField txtCodBarras;
 	private VendaController controller;
 	private JTextField txtQtd;
@@ -102,9 +103,10 @@ public class TelaVenda extends JDialog implements ActionListener {
 		lblTotalR.setForeground(Color.WHITE);
 		lblTotalR.setFont(new Font("Tahoma", Font.PLAIN, 38));
 
-		JButton btnFinalizar = new JButton("Finalizar");
+		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnFinalizar.setBounds(300, 11, 99, 28);
+		btnFinalizar.addActionListener(this);
 		panelDown.add(btnFinalizar);
 
 		JLabel lblTotal = new JLabel("0,00");
@@ -174,6 +176,8 @@ public class TelaVenda extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == txtQtd) {
 			System.out.println("Apertou enter no txtQtd");
+		} else if (e.getSource() == btnFinalizar) {
+			controller.finalizarVenda();
 		}
 	}
 }

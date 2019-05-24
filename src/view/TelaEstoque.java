@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
@@ -46,6 +48,12 @@ public class TelaEstoque extends JDialog implements ActionListener {
 
 		table = new JTable();
 		table.setBackground(Color.WHITE);
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				btnAlterar.setEnabled(true);
+				btnExcluir.setEnabled(true);
+			}
+		});
 		scrollPane.setViewportView(table);
 
 		btnEstocar = new JButton("Estocar");
@@ -54,11 +62,13 @@ public class TelaEstoque extends JDialog implements ActionListener {
 
 		btnAlterar = new JButton("Alterar");
 		btnAlterar.setBounds(445, 79, 89, 23);
+		btnAlterar.setEnabled(false);
 		btnAlterar.addActionListener(this);
 		contentPane.add(btnAlterar);
 
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(644, 79, 89, 23);
+		btnExcluir.setEnabled(false);
 		btnExcluir.addActionListener(this);
 		contentPane.add(btnExcluir);
 
@@ -77,7 +87,7 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		if (e.getSource() == btnNovo) {
 			controller.adicionarNovoProduto();
 		} else if (e.getSource() == btnAlterar) {
-			System.out.println("Desculpe, mas a função não está disponível no momento");
+			controller.alterarProduto();
 		} else if (e.getSource() == btnAlterar) {
 			System.out.println("Desculpe, mas a função não está disponível no momento");
 		} else if (e.getSource() == btnExcluir) {

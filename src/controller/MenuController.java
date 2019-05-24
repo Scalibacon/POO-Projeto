@@ -8,4 +8,11 @@ public class MenuController {
 		tela.setModal(true);
 		tela.setVisible(true);
 	}
+	
+	public boolean verificaPrivilegio(int requisito) {
+		if(Help.logado.getPrivilegio() >= requisito)
+			return true;
+		else
+			return false;
+	}
 }

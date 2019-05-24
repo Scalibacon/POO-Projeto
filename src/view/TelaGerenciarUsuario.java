@@ -3,17 +3,21 @@ package view;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import controller.GerenciarUsuarioController;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 public class TelaGerenciarUsuario extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private GerenciarUsuarioController controller;
 
 	public TelaGerenciarUsuario() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -33,12 +37,19 @@ public class TelaGerenciarUsuario extends JDialog {
 		lblGerenciarUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 38));
 		panel.add(lblGerenciarUsuarios);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 157, 784, 404);
+		contentPane.add(scrollPane);
+		
 		table = new JTable();
-		table.setBounds(0, 157, 784, 404);
-		contentPane.add(table);
+		scrollPane.setViewportView(table);
 		
 		JButton btnCriar = new JButton("Criar");
 		btnCriar.setBounds(360, 89, 89, 23);
-		contentPane.add(btnCriar);
+		contentPane.add(btnCriar);	
+		
+		controller = new GerenciarUsuarioController(table);
+		controller.iniciarTabela();
+		controller.carregarTabela();		
 	}
 }

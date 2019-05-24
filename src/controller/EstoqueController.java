@@ -39,9 +39,21 @@ public class EstoqueController {
 	}
 
 	public void adicionarNovoProduto() {
-		JDialog tela_add_produto = new TelaCadastroProduto(this);
+		JDialog tela_add_produto = new TelaCadastroProduto(this, null);
 		tela_add_produto.setModal(true);
 		tela_add_produto.setVisible(true);
+	}
+	
+	public void alterarProduto() {
+		String cod_barras = String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 4));
+		for(Produto p : Help.lista_produtos) {
+			if(p.getCod_barras() == cod_barras) {
+				Produto p2 = p;
+				JDialog tela_add_produto = new TelaCadastroProduto(this, p2);
+				tela_add_produto.setModal(true);
+				tela_add_produto.setVisible(true);
+			}
+		}
 	}
 	
 	public void excluirProduto() {

@@ -31,8 +31,9 @@ public class TelaCadastroProduto extends JDialog implements ActionListener{
 	private CadastroProdutoController controller = new CadastroProdutoController();
 	private EstoqueController ec;
 	
-	public TelaCadastroProduto(EstoqueController ec) {
+	public TelaCadastroProduto(EstoqueController ec, Produto p) {
 		this.ec = ec;
+		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 550);
 		contentPane = new JPanel();
@@ -113,6 +114,11 @@ public class TelaCadastroProduto extends JDialog implements ActionListener{
 		txtDescricao = new JTextArea();
 		txtDescricao.setBounds(433, 150, 291, 167);
 		contentPane.add(txtDescricao);
+		
+		if(p != null) {
+			produtoToTela(p);
+			btnFinalizar.setText("Alterar");
+		}
 	}
 
 
@@ -134,5 +140,13 @@ public class TelaCadastroProduto extends JDialog implements ActionListener{
 		p.setCod_barras(txtCodBarras.getText());
 		
 		return p;
+	}
+	
+	public void produtoToTela(Produto p) {
+		txtNome.setText(p.getNome());
+		txtPreco.setText(String.valueOf(p.getPreco()));
+		txtQtd.setText(String.valueOf(p.getQuantidade_estoque()));
+		txtCodBarras.setText(p.getCod_barras());
+		comboCategoria.setSelectedItem(p.getCategoria());
 	}
 }

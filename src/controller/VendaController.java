@@ -66,6 +66,8 @@ public class VendaController {
 	}
 	
 	public void finalizarVenda() {
-		
+		Help.lista_vendas.add(v);
+		System.out.println("Venda realizada com sucesso");
+		limparTabela();
 	}
 }

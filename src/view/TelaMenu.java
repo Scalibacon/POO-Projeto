@@ -18,7 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 
-public class TelaMenu extends JFrame implements ActionListener {	
+public class TelaMenu extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MenuController controller = new MenuController();
@@ -31,7 +31,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		contentPane.setBackground(new Color(175, 238, 238));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblNome = new JLabel("Bem-Vindo, " + Help.logado.getNome());
 		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -72,35 +72,62 @@ public class TelaMenu extends JFrame implements ActionListener {
 		lblVenda.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVenda.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblVenda.setBounds(240, 156, 125, 18);
+		if (!controller.verificaPrivilegio(1)) {
+			lblVenda.setForeground(new Color(133, 133, 133));
+		}
 		lblVenda.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				abrirVenda();
 			}
 		});
 		contentPane.add(lblVenda);
-		
+
 		ImageIcon imgUsuarios = new ImageIcon(
 				new ImageIcon("img/usuarios.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
 		JLabel imgGerUsers = new JLabel(imgUsuarios);
 		imgGerUsers.setBounds(57, 223, 125, 125);
-		contentPane.add(imgGerUsers);		
+		imgGerUsers.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				abrirUsuarios();
+			}
+		});
+		contentPane.add(imgGerUsers);
 		JLabel lblGerenciarUsuarios = new JLabel("Gerenciar Usu\u00E1rios");
-		lblGerenciarUsuarios.setForeground(new Color(133, 133, 133));
 		lblGerenciarUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGerenciarUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblGerenciarUsuarios.setBounds(57, 351, 125, 18);
+		if (!controller.verificaPrivilegio(2)) {
+			lblGerenciarUsuarios.setForeground(new Color(133, 133, 133));
+		}
+		lblGerenciarUsuarios.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				abrirUsuarios();
+			}
+		});
 		contentPane.add(lblGerenciarUsuarios);
-		
+
 		ImageIcon imgRelatorios = new ImageIcon(
 				new ImageIcon("img/relatorio.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
 		JLabel imgVerRel = new JLabel(imgRelatorios);
 		imgVerRel.setBounds(240, 223, 125, 125);
-		contentPane.add(imgVerRel);		
+		imgVerRel.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				abrirRelatorios();
+			}
+		});
+		contentPane.add(imgVerRel);
 		JLabel lblVisualizarRelatrios = new JLabel("Visualizar Relat\u00F3rios");
 		lblVisualizarRelatrios.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVisualizarRelatrios.setForeground(new Color(133, 133, 133));
 		lblVisualizarRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblVisualizarRelatrios.setBounds(240, 351, 125, 18);
+		if (!controller.verificaPrivilegio(2)) {
+			lblVisualizarRelatrios.setForeground(new Color(133, 133, 133));
+		}
+		lblVisualizarRelatrios.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				abrirRelatorios();
+			}
+		});
 		contentPane.add(lblVisualizarRelatrios);
 	}
 
@@ -115,8 +142,30 @@ public class TelaMenu extends JFrame implements ActionListener {
 	}
 
 	public void abrirVenda() {
-		JDialog tela = new TelaVenda();
-		controller.abrirModal(tela);
+		if (Help.logado.getPrivilegio() >= 1) {
+			JDialog tela = new TelaVenda();
+			controller.abrirModal(tela);
+		} else {
+			System.out.println("Desculpa " + Help.logado.getNome() + ", mas você não tem privilégios pra isso :(");
+		}
+	}
+	
+	public void abrirUsuarios() {
+		if (controller.verificaPrivilegio(2)) {
+			JDialog tela = new TelaGerenciarUsuario();
+			controller.abrirModal(tela);
+		} else {
+			System.out.println("Desculpa " + Help.logado.getNome() + ", mas você não tem privilégios pra isso :(");
+		}
+	}
+	
+	public void abrirRelatorios() {
+		if (controller.verificaPrivilegio(2)) {
+			JDialog tela = new TelaRelatorio();
+			controller.abrirModal(tela);
+		} else {
+			System.out.println("Desculpa " + Help.logado.getNome() + ", mas você não tem privilégios pra isso :(");
+		}
 	}
 
 }
