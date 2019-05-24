@@ -1,5 +1,4 @@
 package view;
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,6 +13,10 @@ import javax.swing.JButton;
 
 public class CadastroP extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -78,7 +81,7 @@ public class CadastroP extends JFrame {
 		lblQuantidade.setBounds(104, 300, 124, 32);
 		contentPane.add(lblQuantidade);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<?> comboBox = new JComboBox<Object>();
 		comboBox.setBounds(238, 119, 111, 20);
 		contentPane.add(comboBox);
 		

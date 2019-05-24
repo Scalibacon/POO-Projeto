@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,6 +16,10 @@ import javax.swing.JButton;
 
 public class TelaGerenciarUsuario2 extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtCPF;
@@ -73,7 +76,7 @@ public class TelaGerenciarUsuario2 extends JFrame {
 		lblPrivilgio.setBounds(82, 99, 98, 32);
 		contentPane.add(lblPrivilgio);
 		
-		JComboBox cbPrivilegio = new JComboBox();
+		JComboBox<?> cbPrivilegio = new JComboBox<Object>();
 		cbPrivilegio.setBounds(216, 109, 111, 20);
 		contentPane.add(cbPrivilegio);
 		
