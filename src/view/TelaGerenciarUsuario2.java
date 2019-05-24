@@ -16,6 +16,9 @@ import javax.swing.JButton;
 
 public class TelaGerenciarUsuario2 extends JFrame {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -29,6 +32,9 @@ public class TelaGerenciarUsuario2 extends JFrame {
 	private JTextField txtBairro;
 	private JTextField txtSenha;
 
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,6 +48,9 @@ public class TelaGerenciarUsuario2 extends JFrame {
 		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
 	public TelaGerenciarUsuario2() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,7 +76,7 @@ public class TelaGerenciarUsuario2 extends JFrame {
 		lblPrivilgio.setBounds(82, 99, 98, 32);
 		contentPane.add(lblPrivilgio);
 		
-		JComboBox cbPrivilegio = new JComboBox();
+		JComboBox<?> cbPrivilegio = new JComboBox<Object>();
 		cbPrivilegio.setBounds(216, 109, 111, 20);
 		contentPane.add(cbPrivilegio);
 		
