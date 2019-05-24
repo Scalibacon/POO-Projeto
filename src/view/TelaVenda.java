@@ -1,7 +1,7 @@
 package view;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
-public class TelaVenda extends JFrame {
+public class TelaVenda extends JDialog {
 
 	/**
 	 * 
@@ -40,7 +40,7 @@ public class TelaVenda extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaVenda() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
