@@ -1,7 +1,7 @@
 package view;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTable;
 
-public class TelaEstoque extends JFrame {
+public class TelaEstoque extends JDialog {
 
 	/**
 	 * 
@@ -38,7 +38,7 @@ public class TelaEstoque extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaEstoque() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

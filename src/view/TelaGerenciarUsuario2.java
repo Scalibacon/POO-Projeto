@@ -2,7 +2,7 @@ package view;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 
-public class TelaGerenciarUsuario2 extends JFrame {
+public class TelaGerenciarUsuario2 extends JDialog {
 
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class TelaGerenciarUsuario2 extends JFrame {
 	 */
 	public TelaGerenciarUsuario2() {
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 700);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaption);
