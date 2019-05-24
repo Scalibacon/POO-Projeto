@@ -1,8 +1,7 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,24 +18,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 
-public class TelaMenu extends JFrame implements ActionListener {
-
+public class TelaMenu extends JFrame implements ActionListener {	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MenuController controller = new MenuController();
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaMenu frame = new TelaMenu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public TelaMenu() {
 		setTitle("Sistema de Gerenciamento de Mercado");
@@ -52,6 +37,11 @@ public class TelaMenu extends JFrame implements ActionListener {
 				new ImageIcon("img/estoque.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
 		JLabel imgGerEstoque = new JLabel(imgEstoque);
 		imgGerEstoque.setBounds(57, 28, 125, 125);
+		imgGerEstoque.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				abrirEstoque();
+			}
+		});
 		contentPane.add(imgGerEstoque);
 
 		JLabel lblGerenciarEstoque = new JLabel("Gerenciar Estoque");
@@ -60,7 +50,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		lblGerenciarEstoque.setBounds(57, 156, 125, 18);
 		lblGerenciarEstoque.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				
+				abrirEstoque();
 			}
 		});
 		contentPane.add(lblGerenciarEstoque);
@@ -69,18 +59,38 @@ public class TelaMenu extends JFrame implements ActionListener {
 				new ImageIcon("img/venda.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
 		JLabel imgRealVenda = new JLabel(imgVenda);
 		imgRealVenda.setBounds(240, 28, 125, 125);
+		imgRealVenda.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				abrirVenda();
+			}
+		});
 		contentPane.add(imgRealVenda);
 
 		JLabel lblVenda = new JLabel("Realizar Venda");
 		lblVenda.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVenda.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblVenda.setBounds(240, 156, 125, 18);
+		lblVenda.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				abrirVenda();
+			}
+		});
 		contentPane.add(lblVenda);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+	}
+
+	public void abrirEstoque() {
+		JDialog tela = new TelaEstoque();
+		controller.abrirModal(tela);
+	}
+
+	public void abrirVenda() {
+		JDialog tela = new TelaVenda();
+		controller.abrirModal(tela);
 	}
 
 }

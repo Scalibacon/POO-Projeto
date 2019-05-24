@@ -2,6 +2,18 @@ package model;
 
 public class Estoquista {
 	
+	private int privilegio;
+	private String cpf;
+	private String nome;
+	private String rua;
+	private int numero;
+	private String bairro;
+	private String cidade;
+	private String estado;
+	private String telefone;
+	private String celular;
+	private String senha;
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -69,18 +81,6 @@ public class Estoquista {
 	public void setPrivilegio(int privilegio) {
 		this.privilegio = privilegio;
 	}
-	
-	private int privilegio;
-	private String cpf;
-	private String nome;
-	private String rua;
-	private int numero;
-	private String bairro;
-	private String cidade;
-	private String estado;
-	private String telefone;
-	private String celular;
-	private String senha;
 	
 	public void alterar(){
 		
