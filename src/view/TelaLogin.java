@@ -100,7 +100,11 @@ public class TelaLogin extends JFrame implements ActionListener {
 		if(e.getSource() == btnEntrar) {
 			String cpf = txtCpf.getText();
 			String senha = String.valueOf(txtSenha.getPassword());
-			controller.logar(cpf, senha);
+			if(controller.logar(cpf, senha)) {
+				TelaMenu menu = new TelaMenu();
+				menu.setVisible(true);
+				this.dispose();
+			}
 		}
 	}
 }
