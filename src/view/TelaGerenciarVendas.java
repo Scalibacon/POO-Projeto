@@ -11,16 +11,10 @@ import javax.swing.JTable;
 
 public class TelaGerenciarVendas extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -34,9 +28,6 @@ public class TelaGerenciarVendas extends JDialog {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaGerenciarVendas() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);

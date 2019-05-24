@@ -1,5 +1,4 @@
 package view;
-import java.awt.EventQueue;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -12,32 +11,10 @@ import javax.swing.JButton;
 
 public class TelaGerenciarUsuario extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaGerenciarUsuario frame = new TelaGerenciarUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public TelaGerenciarUsuario() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);

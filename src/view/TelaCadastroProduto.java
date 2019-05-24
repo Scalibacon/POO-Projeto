@@ -1,40 +1,38 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.CadastroProdutoController;
+import controller.EstoqueController;
+import model.Categoria;
+import model.Produto;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
-public class TelaCadastroProduto extends JDialog {
+public class TelaCadastroProduto extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNome, txtPreco, txtQtd, txtCodBarras;
-	JTextArea txtDescricao;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroProduto frame = new TelaCadastroProduto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JComboBox<?> comboCategoria;
+	private JTextArea txtDescricao;
+	private JButton btnFinalizar;
+	private CadastroProdutoController controller = new CadastroProdutoController();
+	private EstoqueController ec;
 	
-	public TelaCadastroProduto() {
+	public TelaCadastroProduto(EstoqueController ec) {
+		this.ec = ec;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 550);
 		contentPane = new JPanel();
@@ -72,7 +70,7 @@ public class TelaCadastroProduto extends JDialog {
 		lblQuantidade.setBounds(70, 300, 124, 32);
 		contentPane.add(lblQuantidade);
 		
-		JComboBox<?> comboCategoria = new JComboBox<Object>();
+		comboCategoria = new JComboBox<Object>(Categoria.values());
 		comboCategoria.setBounds(204, 116, 183, 26);
 		contentPane.add(comboCategoria);
 		
@@ -93,12 +91,13 @@ public class TelaCadastroProduto extends JDialog {
 		
 		JLabel lblDescricao = new JLabel("Descri\u00E7\u00E3o");
 		lblDescricao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblDescricao.setBounds(436, 82, 98, 32);
+		lblDescricao.setBounds(433, 109, 98, 32);
 		contentPane.add(lblDescricao);
 		
-		JButton btnFinalizar = new JButton("Finalizar");
+		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnFinalizar.setBounds(366, 430, 98, 32);
+		btnFinalizar.addActionListener(this);
 		contentPane.add(btnFinalizar);
 		
 		JLabel lblCodBarras = new JLabel("Cod. Barras*");
@@ -112,7 +111,28 @@ public class TelaCadastroProduto extends JDialog {
 		contentPane.add(txtCodBarras);
 		
 		txtDescricao = new JTextArea();
-		txtDescricao.setBounds(436, 123, 291, 167);
+		txtDescricao.setBounds(433, 150, 291, 167);
 		contentPane.add(txtDescricao);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {		
+		if (e.getSource() == btnFinalizar) {
+			controller.adicionarNovoProduto(telaToProduto());
+			ec.carregarTabela();
+			this.dispose();
+		}
+	}
+	
+	public Produto telaToProduto() {
+		Produto p = new Produto();
+		p.setCategoria(((Categoria) comboCategoria.getSelectedItem()));
+		p.setNome(txtNome.getText());
+		p.setPreco(Double.parseDouble(txtPreco.getText()));
+		p.setQuantidade_estoque(Integer.parseInt(txtQtd.getText()));
+		p.setCod_barras(txtCodBarras.getText());
+		
+		return p;
 	}
 }

@@ -4,8 +4,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
+import controller.Help;
 import controller.MenuController;
 
 import javax.swing.JLabel;
@@ -26,13 +26,17 @@ public class TelaMenu extends JFrame implements ActionListener {
 	public TelaMenu() {
 		setTitle("Sistema de Gerenciamento de Mercado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 438);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(175, 238, 238));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
+		JLabel lblNome = new JLabel("Bem-Vindo, " + Help.logado.getNome());
+		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNome.setBounds(240, 11, 184, 14);
+		contentPane.add(lblNome);
 		ImageIcon imgEstoque = new ImageIcon(
 				new ImageIcon("img/estoque.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
 		JLabel imgGerEstoque = new JLabel(imgEstoque);
@@ -43,7 +47,6 @@ public class TelaMenu extends JFrame implements ActionListener {
 			}
 		});
 		contentPane.add(imgGerEstoque);
-
 		JLabel lblGerenciarEstoque = new JLabel("Gerenciar Estoque");
 		lblGerenciarEstoque.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblGerenciarEstoque.setHorizontalAlignment(SwingConstants.CENTER);
@@ -65,7 +68,6 @@ public class TelaMenu extends JFrame implements ActionListener {
 			}
 		});
 		contentPane.add(imgRealVenda);
-
 		JLabel lblVenda = new JLabel("Realizar Venda");
 		lblVenda.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVenda.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -76,6 +78,30 @@ public class TelaMenu extends JFrame implements ActionListener {
 			}
 		});
 		contentPane.add(lblVenda);
+		
+		ImageIcon imgUsuarios = new ImageIcon(
+				new ImageIcon("img/usuarios.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
+		JLabel imgGerUsers = new JLabel(imgUsuarios);
+		imgGerUsers.setBounds(57, 223, 125, 125);
+		contentPane.add(imgGerUsers);		
+		JLabel lblGerenciarUsuarios = new JLabel("Gerenciar Usu\u00E1rios");
+		lblGerenciarUsuarios.setForeground(new Color(133, 133, 133));
+		lblGerenciarUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGerenciarUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblGerenciarUsuarios.setBounds(57, 351, 125, 18);
+		contentPane.add(lblGerenciarUsuarios);
+		
+		ImageIcon imgRelatorios = new ImageIcon(
+				new ImageIcon("img/relatorio.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
+		JLabel imgVerRel = new JLabel(imgRelatorios);
+		imgVerRel.setBounds(240, 223, 125, 125);
+		contentPane.add(imgVerRel);		
+		JLabel lblVisualizarRelatrios = new JLabel("Visualizar Relat\u00F3rios");
+		lblVisualizarRelatrios.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVisualizarRelatrios.setForeground(new Color(133, 133, 133));
+		lblVisualizarRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblVisualizarRelatrios.setBounds(240, 351, 125, 18);
+		contentPane.add(lblVisualizarRelatrios);
 	}
 
 	@Override

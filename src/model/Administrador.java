@@ -1,21 +1,25 @@
 package model;
 
-public class Administrador extends Caixa{
-	
-	public void alterarVenda(){
-		
+public class Administrador extends Caixa {
+
+	public void alterarVenda() {
+
 	}
-	
-	public void excluirVenda(){
-		
+
+	public void excluirVenda() {
+
 	}
-	
-	public void gerenciarUsuario(){
-		
+
+	public void gerenciarUsuario() {
+
 	}
-	
-	public void visualizarRelatorio(){
-		
+
+	public void visualizarRelatorioVendas() {
+
+	}
+
+	public void visualizarRelatorioEstoque() {
+
 	}
 
 }

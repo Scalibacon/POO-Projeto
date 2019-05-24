@@ -9,6 +9,7 @@ import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import controller.Help;
 import controller.LoginController;
 
 import javax.swing.JLabel;
@@ -29,12 +30,13 @@ public class TelaLogin extends JFrame implements ActionListener {
 	private JTextField txtCpf;
 	private JPasswordField txtSenha;
 	private JButton btnEntrar;
-	LoginController controller = new LoginController();	
-	
+	LoginController controller = new LoginController();
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Help.preencheListas();
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 					TelaLogin frame = new TelaLogin();
 					frame.setVisible(true);
@@ -55,39 +57,40 @@ public class TelaLogin extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setFont(new Font("SansSerif", Font.BOLD, 14));
 		lblCpf.setBounds(20, 54, 58, 14);
 		contentPane.add(lblCpf);
-		
+
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("SansSerif", Font.BOLD, 14));
 		lblSenha.setBounds(20, 92, 58, 14);
 		contentPane.add(lblSenha);
-		
+
 		txtCpf = new JTextField();
 		txtCpf.setBounds(85, 50, 150, 26);
 		contentPane.add(txtCpf);
 		txtCpf.setColumns(10);
-		
+
 		txtSenha = new JPasswordField();
 		txtSenha.setColumns(10);
 		txtSenha.setBounds(85, 88, 150, 26);
 		contentPane.add(txtSenha);
-		
-		ImageIcon imgLogo = new ImageIcon(new ImageIcon("img/logo.png").getImage().getScaledInstance(57, 57, Image.SCALE_DEFAULT));
+
+		ImageIcon imgLogo = new ImageIcon(
+				new ImageIcon("img/logo.png").getImage().getScaledInstance(57, 57, Image.SCALE_DEFAULT));
 		JLabel lblLogo = new JLabel(imgLogo);
 		lblLogo.setBounds(266, 54, 57, 57);
-		contentPane.add(lblLogo);		
-		
+		contentPane.add(lblLogo);
+
 		JLabel lblEntrarNoSistema = new JLabel("Entrar no Sistema");
 		lblEntrarNoSistema.setForeground(new Color(0, 0, 128));
 		lblEntrarNoSistema.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblEntrarNoSistema.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEntrarNoSistema.setBounds(85, 11, 150, 14);
 		contentPane.add(lblEntrarNoSistema);
-		
+
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnEntrar.setBounds(111, 124, 90, 26);
@@ -97,12 +100,10 @@ public class TelaLogin extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnEntrar) {
+		if (e.getSource() == btnEntrar) {
 			String cpf = txtCpf.getText();
 			String senha = String.valueOf(txtSenha.getPassword());
-			if(controller.logar(cpf, senha)) {
-				TelaMenu menu = new TelaMenu();
-				menu.setVisible(true);
+			if (controller.logar(cpf, senha)) {
 				this.dispose();
 			}
 		}
