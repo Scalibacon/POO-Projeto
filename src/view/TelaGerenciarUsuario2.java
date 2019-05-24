@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,6 +16,7 @@ import javax.swing.JButton;
 
 public class TelaGerenciarUsuario2 extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtCPF;
@@ -29,9 +29,6 @@ public class TelaGerenciarUsuario2 extends JFrame {
 	private JTextField txtBairro;
 	private JTextField txtSenha;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,9 +42,6 @@ public class TelaGerenciarUsuario2 extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaGerenciarUsuario2() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

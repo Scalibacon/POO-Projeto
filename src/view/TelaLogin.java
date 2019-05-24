@@ -5,23 +5,31 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import controller.LoginController;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class TelaLogin extends JFrame {
+public class TelaLogin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtCpf;
-	private JTextField txtSenha;
+	private JPasswordField txtSenha;
+	private JButton btnEntrar;
+	LoginController controller = new LoginController();	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -63,7 +71,7 @@ public class TelaLogin extends JFrame {
 		contentPane.add(txtCpf);
 		txtCpf.setColumns(10);
 		
-		txtSenha = new JTextField();
+		txtSenha = new JPasswordField();
 		txtSenha.setColumns(10);
 		txtSenha.setBounds(85, 88, 150, 26);
 		contentPane.add(txtSenha);
@@ -71,12 +79,7 @@ public class TelaLogin extends JFrame {
 		ImageIcon imgLogo = new ImageIcon(new ImageIcon("img/logo.png").getImage().getScaledInstance(57, 57, Image.SCALE_DEFAULT));
 		JLabel lblLogo = new JLabel(imgLogo);
 		lblLogo.setBounds(266, 54, 57, 57);
-		contentPane.add(lblLogo);
-		
-		JButton btnEntrar = new JButton("Entrar");
-		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnEntrar.setBounds(111, 124, 90, 26);
-		contentPane.add(btnEntrar);
+		contentPane.add(lblLogo);		
 		
 		JLabel lblEntrarNoSistema = new JLabel("Entrar no Sistema");
 		lblEntrarNoSistema.setForeground(new Color(0, 0, 128));
@@ -84,5 +87,20 @@ public class TelaLogin extends JFrame {
 		lblEntrarNoSistema.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEntrarNoSistema.setBounds(85, 11, 150, 14);
 		contentPane.add(lblEntrarNoSistema);
+		
+		btnEntrar = new JButton("Entrar");
+		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnEntrar.setBounds(111, 124, 90, 26);
+		btnEntrar.addActionListener(this);
+		contentPane.add(btnEntrar);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnEntrar) {
+			String cpf = txtCpf.getText();
+			String senha = String.valueOf(txtSenha.getPassword());
+			controller.logar(cpf, senha);
+		}
 	}
 }
