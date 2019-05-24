@@ -1,7 +1,7 @@
 package model;
 
 public class Estoquista {
-	private String cpf;
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -62,6 +62,16 @@ public class Estoquista {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public int getPrivilegio() {
+		return privilegio;
+	}
+	public void setPrivilegio(int privilegio) {
+		this.privilegio = privilegio;
+	}
+	
+	private int privilegio;
+	private String cpf;
 	private String nome;
 	private String rua;
 	private int numero;
