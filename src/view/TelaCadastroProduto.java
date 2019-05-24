@@ -72,7 +72,7 @@ public class TelaCadastroProduto extends JFrame {
 		lblQuantidade.setBounds(70, 300, 124, 32);
 		contentPane.add(lblQuantidade);
 		
-		JComboBox comboCategoria = new JComboBox();
+		JComboBox<?> comboCategoria = new JComboBox<Object>();
 		comboCategoria.setBounds(204, 116, 183, 26);
 		contentPane.add(comboCategoria);
 		
