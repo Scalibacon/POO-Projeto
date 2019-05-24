@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JButton;
 
 public class TelaEstoque extends JDialog {
 
@@ -55,19 +58,35 @@ public class TelaEstoque extends JDialog {
 		lblGerenciamentoDeEstoque.setFont(new Font("Tahoma", Font.PLAIN, 38));
 		panel.add(lblGerenciamentoDeEstoque);
 		
-		JLabel label = new JLabel("+");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		label.setForeground(new Color(0, 128, 128));
-		label.setBounds(252, 71, 39, 40);
-		contentPane.add(label);
-		
-		JLabel lblNewLabel = new JLabel("Cadastrar produto");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel.setBounds(301, 79, 182, 32);
-		contentPane.add(lblNewLabel);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 134, 784, 427);
+		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setBounds(0, 134, 784, 427);
-		contentPane.add(table);
+		table.setBackground(Color.WHITE);
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome do produto", "Categoria", "Pre\u00E7o R$", "Qtd Estoque"
+			}
+		));
+		
+		JButton btnEstocar = new JButton("New button");
+		btnEstocar.setBounds(122, 79, 89, 23);
+		contentPane.add(btnEstocar);
+		
+		JButton btnAlterar = new JButton("New button");
+		btnAlterar.setBounds(349, 79, 89, 23);
+		contentPane.add(btnAlterar);
+		
+		JButton btnExcluir = new JButton("New button");
+		btnExcluir.setBounds(578, 79, 89, 23);
+		contentPane.add(btnExcluir);
+		table.getColumnModel().getColumn(0).setPreferredWidth(239);
+		table.getColumnModel().getColumn(1).setPreferredWidth(185);
+		table.getColumnModel().getColumn(2).setPreferredWidth(101);
+		table.getColumnModel().getColumn(3).setPreferredWidth(98);
 	}
 }
