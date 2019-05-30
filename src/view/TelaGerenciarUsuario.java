@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import controller.GerenciarUsuarioController;
 
 import java.awt.Color;
@@ -15,40 +14,44 @@ import javax.swing.JScrollPane;
 public class TelaGerenciarUsuario extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable table;
+	private JPanel painel;
+	private JTable tabela;
 	private GerenciarUsuarioController controller;
+	
+	public static void main(String args[]) {
+		TelaGerenciarUsuario2 tela = new TelaGerenciarUsuario2();
+		tela.setVisible(true);
+	}
 
 	public TelaGerenciarUsuario() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		painel = new JPanel();
+		setContentPane(painel);
+		painel.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 128));
-		panel.setBounds(0, 0, 795, 50);
-		contentPane.add(panel);
+		panel.setBackground(new Color(0, 130, 130));
+		panel.setBounds(0, 0, 800, 50);
+		painel.add(panel);
 		
 		JLabel lblGerenciarUsuarios = new JLabel("GERENCIAR USU\u00C1RIOS");
 		lblGerenciarUsuarios.setForeground(Color.WHITE);
 		lblGerenciarUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 38));
 		panel.add(lblGerenciarUsuarios);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 157, 784, 404);
-		contentPane.add(scrollPane);
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBounds(0, 160, 785, 400);
+		painel.add(scroll);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		tabela = new JTable();
+		scroll.setViewportView(tabela);
 		
 		JButton btnCriar = new JButton("Criar");
-		btnCriar.setBounds(360, 89, 89, 23);
-		contentPane.add(btnCriar);	
+		btnCriar.setBounds(360, 90, 90, 25);
+		painel.add(btnCriar);	
 		
-		controller = new GerenciarUsuarioController(table);
+		controller = new GerenciarUsuarioController(tabela);
 		controller.iniciarTabela();
 		controller.carregarTabela();		
 	}

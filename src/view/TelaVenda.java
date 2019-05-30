@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -40,13 +39,12 @@ public class TelaVenda extends JDialog implements ActionListener {
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 128));
-		panel.setBounds(0, 0, 795, 50);
+		panel.setBackground(new Color(0, 130, 130));
+		panel.setBounds(0, 0, 800, 50);
 		contentPane.add(panel);
 
 		JLabel lblVenda = new JLabel("VENDA");
@@ -55,9 +53,9 @@ public class TelaVenda extends JDialog implements ActionListener {
 		panel.add(lblVenda);
 
 		JLabel labelAdd = new JLabel("+");
-		labelAdd.setForeground(new Color(0, 180, 128));
+		labelAdd.setForeground(new Color(0, 180, 130));
 		labelAdd.setFont(new Font("Tahoma", Font.PLAIN, 60));
-		labelAdd.setBounds(523, 61, 45, 45);
+		labelAdd.setBounds(525, 60, 50, 50);
 		labelAdd.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				controller.adicionarItemVenda(txtCodBarras.getText());
@@ -67,7 +65,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 
 		JLabel lblNovoItem = new JLabel("Adicionar");
 		lblNovoItem.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNovoItem.setBounds(572, 65, 114, 45);
+		lblNovoItem.setBounds(570, 65, 115, 45);
 		lblNovoItem.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				controller.adicionarItemVenda(txtCodBarras.getText());
@@ -76,12 +74,12 @@ public class TelaVenda extends JDialog implements ActionListener {
 		contentPane.add(lblNovoItem);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 133, 795, 325);
+		scrollPane.setBounds(0, 135, 800, 325);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
-		table.setBackground(new Color(152, 251, 152));
-		table.setBounds(0, 133, 795, 378);
+		table.setBackground(new Color(150, 250, 150));
+		table.setBounds(0, 135, 800, 380);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				txtQtd.setEditable(true);
@@ -91,13 +89,13 @@ public class TelaVenda extends JDialog implements ActionListener {
 		scrollPane.setViewportView(table);
 
 		JPanel panelDown = new JPanel();
-		panelDown.setBackground(new Color(0, 128, 128));
-		panelDown.setBounds(-11, 511, 795, 50);
+		panelDown.setBackground(new Color(0, 130, 130));
+		panelDown.setBounds(0, 510, 800, 50);
 		contentPane.add(panelDown);
 		panelDown.setLayout(null);
 
 		JLabel lblTotalR = new JLabel("TOTAL R$: ");
-		lblTotalR.setBounds(412, 0, 195, 50);
+		lblTotalR.setBounds(415, 0, 200, 50);
 		panelDown.add(lblTotalR);
 		lblTotalR.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTotalR.setForeground(Color.WHITE);
@@ -105,7 +103,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 
 		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnFinalizar.setBounds(300, 11, 99, 28);
+		btnFinalizar.setBounds(300, 10, 100, 30);
 		btnFinalizar.addActionListener(this);
 		panelDown.add(btnFinalizar);
 
@@ -113,45 +111,44 @@ public class TelaVenda extends JDialog implements ActionListener {
 		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTotal.setForeground(new Color(255, 255, 255));
 		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 36));
-		lblTotal.setBounds(595, 1, 200, 50);
+		lblTotal.setBounds(600, 1, 200, 50);
 		panelDown.add(lblTotal);
 
 		JLabel lblCodBarras = new JLabel("C\u00F3d. Barras");
 		lblCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCodBarras.setBounds(112, 82, 90, 22);
+		lblCodBarras.setBounds(110, 80, 90, 20);
 		contentPane.add(lblCodBarras);
 
 		txtCodBarras = new JTextField();
 		txtCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtCodBarras.setBounds(194, 79, 319, 29);
+		txtCodBarras.setBounds(195, 80, 320, 30);
 		contentPane.add(txtCodBarras);
-		txtCodBarras.setColumns(10);
 
 		controller = new VendaController(table);
 
 		JLabel lblQtd = new JLabel("Quantidade: ");
 		lblQtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblQtd.setBounds(292, 469, 114, 31);
+		lblQtd.setBounds(290, 470, 115, 30);
 		contentPane.add(lblQtd);
 
 		txtQtd = new JTextField();
 		txtQtd.setEditable(false);
 		txtQtd.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtQtd.setHorizontalAlignment(SwingConstants.CENTER);
-		txtQtd.setBounds(416, 469, 119, 31);
+		txtQtd.setBounds(415, 470, 120, 30);
 		txtQtd.addActionListener(this);
 		contentPane.add(txtQtd);
 		txtQtd.setColumns(10);
 
 		JLabel lblRetirar = new JLabel("Retirar");
 		lblRetirar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRetirar.setBounds(645, 469, 62, 31);
+		lblRetirar.setBounds(645, 470, 60, 30);
 		contentPane.add(lblRetirar);
 
 		ImageIcon imgRetirarIcon = new ImageIcon(
 				new ImageIcon("img/x.png").getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
 		JLabel imgRetirar = new JLabel(imgRetirarIcon);
-		imgRetirar.setBounds(707, 469, 35, 35);
+		imgRetirar.setBounds(700, 470, 35, 35);
 		imgRetirar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				controller.removerItemVenda();
@@ -161,7 +158,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 
 		lblNome = new JLabel("Nome...");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNome.setBounds(20, 469, 114, 31);
+		lblNome.setBounds(20, 470, 115, 30);
 		contentPane.add(lblNome);
 
 		controller.iniciarTabelaItens();

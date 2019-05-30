@@ -24,7 +24,7 @@ import javax.swing.JTextArea;
 public class TelaEstoque extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JPanel painel;
 	private JTable table;
 	private JButton btnNovo, btnExcluir, btnEstocar, btnAlterar;
 	private EstoqueController controller;
@@ -33,15 +33,15 @@ public class TelaEstoque extends JDialog implements ActionListener {
 
 	public TelaEstoque() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1075, 600);
-		contentPane = new JPanel();
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setBounds(100, 100, 1080, 600);
+		painel = new JPanel();
+		setContentPane(painel);
+		painel.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 128));
-		panel.setBounds(-11, 0, 1060, 50);
-		contentPane.add(panel);
+		panel.setBackground(new Color(0, 130, 130));
+		panel.setBounds(0, 0, 1050, 50);
+		painel.add(panel);
 
 		JLabel lblGerenciamentoDeEstoque = new JLabel("GERENCIAMENTO DE ESTOQUE");
 		lblGerenciamentoDeEstoque.setForeground(new Color(255, 255, 255));
@@ -49,8 +49,8 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		panel.add(lblGerenciamentoDeEstoque);
 
 		JScrollPane scrollTable = new JScrollPane();
-		scrollTable.setBounds(10, 134, 690, 427);
-		contentPane.add(scrollTable);
+		scrollTable.setBounds(10, 135, 700, 425);
+		painel.add(scrollTable);
 
 		table = new JTable();
 		table.setBackground(Color.WHITE);
@@ -64,102 +64,102 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		scrollTable.setViewportView(table);
 
 		btnEstocar = new JButton("Estocar");
-		btnEstocar.setBounds(218, 79, 89, 23);
-		contentPane.add(btnEstocar);
+		btnEstocar.setBounds(220, 80, 90, 25);
+		painel.add(btnEstocar);
 
 		btnAlterar = new JButton("Alterar");
-		btnAlterar.setBounds(383, 79, 89, 23);
+		btnAlterar.setBounds(385, 80, 90, 25);
 		btnAlterar.setEnabled(false);
 		btnAlterar.addActionListener(this);
-		contentPane.add(btnAlterar);
+		painel.add(btnAlterar);
 
 		btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(568, 79, 89, 23);
+		btnExcluir.setBounds(570, 80, 90, 25);
 		btnExcluir.setEnabled(false);
 		btnExcluir.addActionListener(this);
-		contentPane.add(btnExcluir);
+		painel.add(btnExcluir);
 
 		btnNovo = new JButton("Novo");
-		btnNovo.setBounds(52, 79, 89, 23);
+		btnNovo.setBounds(55, 80, 90, 25);
 		btnNovo.addActionListener(this);
-		contentPane.add(btnNovo);
+		painel.add(btnNovo);
 
 		controller = new EstoqueController(table);
 		
 		JPanel panelDetail = new JPanel();
 		panelDetail.setBackground(Color.WHITE);
 		panelDetail.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelDetail.setBounds(717, 79, 332, 472);
-		contentPane.add(panelDetail);
+		panelDetail.setBounds(720, 80, 335, 475);
+		painel.add(panelDetail);
 		panelDetail.setLayout(null);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNome.setBounds(10, 11, 237, 20);
+		lblNome.setBounds(10, 10, 240, 20);
 		panelDetail.add(lblNome);
 		
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtNome.setEditable(false);
-		txtNome.setBounds(10, 38, 312, 25);
+		txtNome.setBounds(10, 40, 315, 25);
 		panelDetail.add(txtNome);
 		txtNome.setColumns(10);
 		
 		JLabel lblCategoria = new JLabel("Categoria");
 		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCategoria.setBounds(10, 74, 237, 20);
+		lblCategoria.setBounds(10, 75, 240, 20);
 		panelDetail.add(lblCategoria);
 		
 		txtCategoria = new JTextField();
 		txtCategoria.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCategoria.setEditable(false);
 		txtCategoria.setColumns(10);
-		txtCategoria.setBounds(10, 101, 312, 25);
+		txtCategoria.setBounds(10, 100, 315, 25);
 		panelDetail.add(txtCategoria);
 		
 		txtPreco = new JTextField();
 		txtPreco.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtPreco.setEditable(false);
 		txtPreco.setColumns(10);
-		txtPreco.setBounds(10, 164, 312, 25);
+		txtPreco.setBounds(10, 165, 315, 25);
 		panelDetail.add(txtPreco);
 		
 		JLabel lblPreco = new JLabel("Pre\u00E7o");
 		lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPreco.setBounds(10, 137, 237, 20);
+		lblPreco.setBounds(10, 140, 240, 20);
 		panelDetail.add(lblPreco);
 		
 		txtCodBarras = new JTextField();
 		txtCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCodBarras.setEditable(false);
 		txtCodBarras.setColumns(10);
-		txtCodBarras.setBounds(10, 227, 312, 25);
+		txtCodBarras.setBounds(10, 230, 315, 25);
 		panelDetail.add(txtCodBarras);
 		
 		JLabel lblCodBarras = new JLabel("C\u00F3digo de Barras");
 		lblCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCodBarras.setBounds(10, 200, 237, 20);
+		lblCodBarras.setBounds(10, 200, 240, 20);
 		panelDetail.add(lblCodBarras);
 		
 		txtQtdEstoque = new JTextField();
 		txtQtdEstoque.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtQtdEstoque.setEditable(false);
 		txtQtdEstoque.setColumns(10);
-		txtQtdEstoque.setBounds(10, 290, 312, 25);
+		txtQtdEstoque.setBounds(10, 290, 315, 25);
 		panelDetail.add(txtQtdEstoque);
 		
 		JLabel lblQtdEstoque = new JLabel("Quantidade Estoque");
 		lblQtdEstoque.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblQtdEstoque.setBounds(10, 263, 237, 20);
+		lblQtdEstoque.setBounds(10, 265, 240, 20);
 		panelDetail.add(lblQtdEstoque);
 		
 		JLabel lblDescricao = new JLabel("Descri\u00E7\u00E3o");
 		lblDescricao.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblDescricao.setBounds(10, 326, 237, 20);
+		lblDescricao.setBounds(10, 325, 240, 20);
 		panelDetail.add(lblDescricao);
 		
 		JScrollPane scrollDesc = new JScrollPane();
-		scrollDesc.setBounds(10, 357, 312, 104);
+		scrollDesc.setBounds(10, 360, 315, 105);
 		scrollDesc.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panelDetail.add(scrollDesc);
 		

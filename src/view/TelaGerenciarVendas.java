@@ -1,9 +1,7 @@
 package view;
-import java.awt.EventQueue;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -15,30 +13,16 @@ public class TelaGerenciarVendas extends JDialog {
 	private JPanel contentPane;
 	private JTable table;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaGerenciarVendas frame = new TelaGerenciarVendas();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public TelaGerenciarVendas() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 128));
-		panel.setBounds(0, 0, 795, 50);
+		panel.setBackground(new Color(0, 130, 130));
+		panel.setBounds(0, 0, 800, 50);
 		contentPane.add(panel);
 		
 		JLabel lblGerenciamentoDeVendas = new JLabel("GERENCIAMENTO DE VENDAS");
@@ -47,7 +31,7 @@ public class TelaGerenciarVendas extends JDialog {
 		panel.add(lblGerenciamentoDeVendas);
 		
 		table = new JTable();
-		table.setBounds(0, 103, 784, 409);
+		table.setBounds(0, 105, 785, 410);
 		contentPane.add(table);
 	}
 }

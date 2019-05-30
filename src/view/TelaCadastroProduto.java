@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import controller.CadastroProdutoController;
 import controller.EstoqueController;
@@ -37,13 +36,12 @@ public class TelaCadastroProduto extends JDialog implements ActionListener{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 550);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 128, 128));
-		panel.setBounds(0, 0, 795, 50);
+		panel.setBounds(0, 0, 800, 50);
 		contentPane.add(panel);
 		
 		JLabel lblCadastroDeProduto = new JLabel("CADASTRO DE PRODUTO");
@@ -53,66 +51,66 @@ public class TelaCadastroProduto extends JDialog implements ActionListener{
 		
 		JLabel lblNewLabel = new JLabel("Categoria*");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel.setBounds(70, 109, 98, 32);
+		lblNewLabel.setBounds(70, 110, 100, 30);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNome = new JLabel("Nome*");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNome.setBounds(70, 175, 98, 32);
+		lblNome.setBounds(70, 175, 100, 30);
 		contentPane.add(lblNome);
 		
 		JLabel lblPreo = new JLabel("Pre\u00E7o*");
 		lblPreo.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblPreo.setBounds(70, 238, 98, 32);
+		lblPreo.setBounds(70, 240, 100, 30);
 		contentPane.add(lblPreo);
 		
 		JLabel lblQuantidade = new JLabel("Quantidade*");
 		lblQuantidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblQuantidade.setBounds(70, 300, 124, 32);
+		lblQuantidade.setBounds(70, 300, 125, 30);
 		contentPane.add(lblQuantidade);
 		
 		comboCategoria = new JComboBox<Object>(Categoria.values());
-		comboCategoria.setBounds(204, 116, 183, 26);
+		comboCategoria.setBounds(205, 115, 185, 25);
 		contentPane.add(comboCategoria);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(204, 182, 183, 26);
+		txtNome.setBounds(205, 185, 185, 25);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 		
 		txtPreco = new JTextField();
 		txtPreco.setColumns(10);
-		txtPreco.setBounds(204, 245, 183, 26);
+		txtPreco.setBounds(205, 245, 185, 25);
 		contentPane.add(txtPreco);
 		
 		txtQtd = new JTextField();
 		txtQtd.setColumns(10);
-		txtQtd.setBounds(204, 307, 183, 26);
+		txtQtd.setBounds(205, 310, 185, 25);
 		contentPane.add(txtQtd);
 		
 		JLabel lblDescricao = new JLabel("Descri\u00E7\u00E3o");
 		lblDescricao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblDescricao.setBounds(433, 109, 98, 32);
+		lblDescricao.setBounds(435, 110, 100, 30);
 		contentPane.add(lblDescricao);
 		
 		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnFinalizar.setBounds(366, 430, 98, 32);
+		btnFinalizar.setBounds(365, 430, 100, 30);
 		btnFinalizar.addActionListener(this);
 		contentPane.add(btnFinalizar);
 		
 		JLabel lblCodBarras = new JLabel("Cod. Barras*");
 		lblCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblCodBarras.setBounds(70, 362, 124, 32);
+		lblCodBarras.setBounds(70, 360, 125, 30);
 		contentPane.add(lblCodBarras);
 		
 		txtCodBarras = new JTextField();
 		txtCodBarras.setColumns(10);
-		txtCodBarras.setBounds(204, 369, 183, 26);
+		txtCodBarras.setBounds(205, 370, 185, 25);
 		contentPane.add(txtCodBarras);
 		
 		txtDescricao = new JTextArea();
-		txtDescricao.setBounds(433, 150, 291, 167);
+		txtDescricao.setBounds(430, 150, 290, 165);
 		contentPane.add(txtDescricao);
 		
 		if(p != null) {
