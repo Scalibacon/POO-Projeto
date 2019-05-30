@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -43,7 +42,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		imgGerEstoque.setBounds(57, 28, 125, 125);
 		imgGerEstoque.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				abrirEstoque();
+				controller.abrirEstoque();
 			}
 		});
 		contentPane.add(imgGerEstoque);
@@ -53,7 +52,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		lblGerenciarEstoque.setBounds(57, 156, 125, 18);
 		lblGerenciarEstoque.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				abrirEstoque();
+				controller.abrirEstoque();
 			}
 		});
 		contentPane.add(lblGerenciarEstoque);
@@ -64,7 +63,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		imgRealVenda.setBounds(240, 28, 125, 125);
 		imgRealVenda.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				abrirVenda();
+				controller.abrirVenda();
 			}
 		});
 		contentPane.add(imgRealVenda);
@@ -77,7 +76,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		}
 		lblVenda.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				abrirVenda();
+				controller.abrirVenda();
 			}
 		});
 		contentPane.add(lblVenda);
@@ -88,7 +87,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		imgGerUsers.setBounds(57, 223, 125, 125);
 		imgGerUsers.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				abrirUsuarios();
+				controller.abrirUsuarios();
 			}
 		});
 		contentPane.add(imgGerUsers);
@@ -101,7 +100,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		}
 		lblGerenciarUsuarios.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				abrirUsuarios();
+				controller.abrirUsuarios();
 			}
 		});
 		contentPane.add(lblGerenciarUsuarios);
@@ -112,7 +111,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		imgVerRel.setBounds(240, 223, 125, 125);
 		imgVerRel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				abrirRelatorios();
+				controller.abrirRelatorios();
 			}
 		});
 		contentPane.add(imgVerRel);
@@ -125,7 +124,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		}
 		lblVisualizarRelatrios.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				abrirRelatorios();
+				controller.abrirRelatorios();
 			}
 		});
 		contentPane.add(lblVisualizarRelatrios);
@@ -134,38 +133,6 @@ public class TelaMenu extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-	}
-
-	public void abrirEstoque() {
-		JDialog tela = new TelaEstoque();
-		controller.abrirModal(tela);
-	}
-
-	public void abrirVenda() {
-		if (Help.logado.getPrivilegio() >= 1) {
-			JDialog tela = new TelaVenda();
-			controller.abrirModal(tela);
-		} else {
-			System.out.println("Desculpa " + Help.logado.getNome() + ", mas você não tem privilégios pra isso :(");
-		}
-	}
-	
-	public void abrirUsuarios() {
-		if (controller.verificaPrivilegio(2)) {
-			JDialog tela = new TelaGerenciarUsuario();
-			controller.abrirModal(tela);
-		} else {
-			System.out.println("Desculpa " + Help.logado.getNome() + ", mas você não tem privilégios pra isso :(");
-		}
-	}
-	
-	public void abrirRelatorios() {
-		if (controller.verificaPrivilegio(2)) {
-			JDialog tela = new TelaRelatorio();
-			controller.abrirModal(tela);
-		} else {
-			System.out.println("Desculpa " + Help.logado.getNome() + ", mas você não tem privilégios pra isso :(");
-		}
 	}
 
 }

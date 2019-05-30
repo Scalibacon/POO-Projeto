@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import controller.EstoqueController;
+import model.Produto;
 
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -16,6 +17,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.JTextArea;
 
 public class TelaEstoque extends JDialog implements ActionListener {
 
@@ -24,17 +28,19 @@ public class TelaEstoque extends JDialog implements ActionListener {
 	private JTable table;
 	private JButton btnNovo, btnExcluir, btnEstocar, btnAlterar;
 	private EstoqueController controller;
+	private JTextField txtNome, txtCategoria, txtPreco, txtCodBarras, txtQtdEstoque;
+	private JTextArea txtDesc;
 
 	public TelaEstoque() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 1075, 600);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 128, 128));
-		panel.setBounds(-11, 0, 795, 50);
+		panel.setBounds(-11, 0, 1060, 50);
 		contentPane.add(panel);
 
 		JLabel lblGerenciamentoDeEstoque = new JLabel("GERENCIAMENTO DE ESTOQUE");
@@ -42,9 +48,9 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		lblGerenciamentoDeEstoque.setFont(new Font("Tahoma", Font.PLAIN, 38));
 		panel.add(lblGerenciamentoDeEstoque);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 134, 784, 427);
-		contentPane.add(scrollPane);
+		JScrollPane scrollTable = new JScrollPane();
+		scrollTable.setBounds(10, 134, 690, 427);
+		contentPane.add(scrollTable);
 
 		table = new JTable();
 		table.setBackground(Color.WHITE);
@@ -52,34 +58,127 @@ public class TelaEstoque extends JDialog implements ActionListener {
 			public void valueChanged(ListSelectionEvent e) {
 				btnAlterar.setEnabled(true);
 				btnExcluir.setEnabled(true);
+				carregarDetail(table.getSelectedRow());
 			}
 		});
-		scrollPane.setViewportView(table);
+		scrollTable.setViewportView(table);
 
 		btnEstocar = new JButton("Estocar");
-		btnEstocar.setBounds(250, 79, 89, 23);
+		btnEstocar.setBounds(218, 79, 89, 23);
 		contentPane.add(btnEstocar);
 
 		btnAlterar = new JButton("Alterar");
-		btnAlterar.setBounds(445, 79, 89, 23);
+		btnAlterar.setBounds(383, 79, 89, 23);
 		btnAlterar.setEnabled(false);
 		btnAlterar.addActionListener(this);
 		contentPane.add(btnAlterar);
 
 		btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(644, 79, 89, 23);
+		btnExcluir.setBounds(568, 79, 89, 23);
 		btnExcluir.setEnabled(false);
 		btnExcluir.addActionListener(this);
 		contentPane.add(btnExcluir);
 
 		btnNovo = new JButton("Novo");
-		btnNovo.setBounds(56, 79, 89, 23);
+		btnNovo.setBounds(52, 79, 89, 23);
 		btnNovo.addActionListener(this);
 		contentPane.add(btnNovo);
 
 		controller = new EstoqueController(table);
+		
+		JPanel panelDetail = new JPanel();
+		panelDetail.setBackground(Color.WHITE);
+		panelDetail.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelDetail.setBounds(717, 79, 332, 472);
+		contentPane.add(panelDetail);
+		panelDetail.setLayout(null);
+		
+		JLabel lblNome = new JLabel("Nome");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNome.setBounds(10, 11, 237, 20);
+		panelDetail.add(lblNome);
+		
+		txtNome = new JTextField();
+		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtNome.setEditable(false);
+		txtNome.setBounds(10, 38, 312, 25);
+		panelDetail.add(txtNome);
+		txtNome.setColumns(10);
+		
+		JLabel lblCategoria = new JLabel("Categoria");
+		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblCategoria.setBounds(10, 74, 237, 20);
+		panelDetail.add(lblCategoria);
+		
+		txtCategoria = new JTextField();
+		txtCategoria.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCategoria.setEditable(false);
+		txtCategoria.setColumns(10);
+		txtCategoria.setBounds(10, 101, 312, 25);
+		panelDetail.add(txtCategoria);
+		
+		txtPreco = new JTextField();
+		txtPreco.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtPreco.setEditable(false);
+		txtPreco.setColumns(10);
+		txtPreco.setBounds(10, 164, 312, 25);
+		panelDetail.add(txtPreco);
+		
+		JLabel lblPreco = new JLabel("Pre\u00E7o");
+		lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPreco.setBounds(10, 137, 237, 20);
+		panelDetail.add(lblPreco);
+		
+		txtCodBarras = new JTextField();
+		txtCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtCodBarras.setEditable(false);
+		txtCodBarras.setColumns(10);
+		txtCodBarras.setBounds(10, 227, 312, 25);
+		panelDetail.add(txtCodBarras);
+		
+		JLabel lblCodBarras = new JLabel("C\u00F3digo de Barras");
+		lblCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblCodBarras.setBounds(10, 200, 237, 20);
+		panelDetail.add(lblCodBarras);
+		
+		txtQtdEstoque = new JTextField();
+		txtQtdEstoque.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtQtdEstoque.setEditable(false);
+		txtQtdEstoque.setColumns(10);
+		txtQtdEstoque.setBounds(10, 290, 312, 25);
+		panelDetail.add(txtQtdEstoque);
+		
+		JLabel lblQtdEstoque = new JLabel("Quantidade Estoque");
+		lblQtdEstoque.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblQtdEstoque.setBounds(10, 263, 237, 20);
+		panelDetail.add(lblQtdEstoque);
+		
+		JLabel lblDescricao = new JLabel("Descri\u00E7\u00E3o");
+		lblDescricao.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDescricao.setBounds(10, 326, 237, 20);
+		panelDetail.add(lblDescricao);
+		
+		JScrollPane scrollDesc = new JScrollPane();
+		scrollDesc.setBounds(10, 357, 312, 104);
+		scrollDesc.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		panelDetail.add(scrollDesc);
+		
+		txtDesc = new JTextArea();
+		txtDesc.setEditable(false);
+		txtDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		scrollDesc.setViewportView(txtDesc);
 		controller.iniciarTabelaEstoque();
 		controller.carregarTabela();
+	}
+	
+	public void carregarDetail(int rowla) {
+		Produto p = controller.buscarProduto(table.getValueAt(rowla, 4).toString());
+		txtNome.setText(p.getNome());
+		txtCategoria.setText(p.getCategoria().name());
+		txtPreco.setText(String.valueOf(p.getPreco()));
+		txtQtdEstoque.setText(String.valueOf(p.getQuantidade_estoque()));
+		txtCodBarras.setText(p.getCod_barras());
+		txtDesc.setText(p.getDescricao());
 	}
 
 	@Override

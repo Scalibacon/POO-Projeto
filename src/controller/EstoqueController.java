@@ -61,4 +61,13 @@ public class EstoqueController {
 		Help.logado.excluirProduto(cod_barras);
 		carregarTabela();
 	}
+	
+	public Produto buscarProduto(String cod_barras) {
+		for(Produto p : Help.lista_produtos) {
+			if(p.getCod_barras().equals(cod_barras)) {
+				return p;
+			}
+		}
+		return null;
+	}
 }

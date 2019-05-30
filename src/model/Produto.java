@@ -6,6 +6,7 @@ public class Produto {
 	private double preco;
 	private int quantidade_estoque;
 	private String cod_barras;
+	private String descricao;
 
 	public String getCod_barras() {
 		return cod_barras;
@@ -17,6 +18,14 @@ public class Produto {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public void setNome(String nome) {
@@ -46,7 +55,7 @@ public class Produto {
 	public void setQuantidade_estoque(int quantidade_estoque) {
 		this.quantidade_estoque = quantidade_estoque;
 	}
-	
+
 	public AlteracaoEstoque alterarEstoque() {
 		AlteracaoEstoque ae = new AlteracaoEstoque();
 		return ae;
