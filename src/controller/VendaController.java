@@ -4,7 +4,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import model.ItemVenda;
-import model.Produto;
 import model.Venda;
 
 public class VendaController {
@@ -21,7 +20,7 @@ public class VendaController {
 
 		tabela.getColumnModel().getColumn(0).setPreferredWidth(180);
 		tabela.getColumnModel().getColumn(1).setPreferredWidth(200);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(95);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(100);
 		tabela.getColumnModel().getColumn(3).setPreferredWidth(75);
 		tabela.getColumnModel().getColumn(4).setPreferredWidth(100);
 
@@ -33,41 +32,41 @@ public class VendaController {
 		for (ItemVenda iv : v.getLista_produtos()) {
 			model.addRow(new Object[] { iv.getProduto().getNome(), iv.getProduto().getCod_barras(),
 					"R$" + iv.getProduto().getPreco(), iv.getQuantidade_produto(),
-					(iv.calcularSubtotal())});
+					iv.calcularSubtotal()});
 		}
 	}
 
 	public void limparTabela() {
-		tabela.getSelectionModel().clearSelection();
 		tabela.clearSelection();
 		DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 		model.setRowCount(0);
 	}
 
-	public void adicionarItemVenda(String cod_barras) {
-		tabela.getSelectionModel().clearSelection();
-		System.out.println("aqui");
-		for (Produto p : Help.lista_produtos) {
-			if (p.getCod_barras().equals(cod_barras)) {
-				ItemVenda iv = new ItemVenda();
-				iv.setProduto(p);
-				iv.setQuantidade_produto(1);
-				v.getLista_produtos().add(iv);
-				carregarTabela();
-				return;
-			}
+	public void adicionarItemVenda(String cod_barras) {		
+		if(v.adicionarItem(cod_barras, 1)) {
+			carregarTabela();
+		}else {
+			System.out.println("Código de barras não encontrado... :(");
 		}		
-		
-		System.out.println("Código de barras não encontrado... :(");
 	}
 	
-	public void removerItemVenda() {
-		
+	public void removerItemVenda(String cod_bar) {
+		if(v.removerItem(cod_bar)) {
+			carregarTabela();
+		}else {
+			System.out.println("Não foi possível remover o produto... :(");
+		}
 	}
 	
 	public void finalizarVenda() {
 		Help.lista_vendas.add(v);
 		System.out.println("Venda realizada com sucesso");
 		limparTabela();
+	}
+
+	public void alterarQuantidade(String cod_bar, int novaQtd) {
+		if(v.alterarQuantidade(cod_bar, novaQtd)) {
+			carregarTabela();
+		}
 	}
 }

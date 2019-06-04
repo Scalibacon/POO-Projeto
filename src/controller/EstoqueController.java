@@ -19,7 +19,7 @@ public class EstoqueController {
 
 		tabela.getColumnModel().getColumn(0).setPreferredWidth(180);
 		tabela.getColumnModel().getColumn(1).setPreferredWidth(180);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(95);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(100);
 		tabela.getColumnModel().getColumn(3).setPreferredWidth(75);
 		tabela.getColumnModel().getColumn(4).setPreferredWidth(200);
 	}
@@ -34,6 +34,7 @@ public class EstoqueController {
 	}
 
 	public void limparTabela() {
+		tabela.clearSelection();
 		DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 		model.setRowCount(0);
 	}

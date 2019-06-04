@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import controller.Help;
+
 public class Venda {
 
 	private double total;
@@ -39,22 +41,51 @@ public class Venda {
 		this.lista_produtos = lista_produtos;
 	}
 	
-	public void calcularTotal() {
+	public double calcularTotal() {
 		for(ItemVenda iv : this.getLista_produtos()) {
 			this.total += iv.getProduto().getPreco() * iv.getQuantidade_produto();
 		}
+		return total;
 	}
 
-	public void adicionarItem(String cod_bar, int qtd) {
-
+	public boolean adicionarItem(String cod_bar, int qtd) {
+		for(ItemVenda iv : this.lista_produtos) {
+			if(iv.getProduto().getCod_barras().equals(cod_bar)) {
+				System.out.println("Produto já adicionado na lista :X");
+				return false;
+			}
+		}
+		for (Produto p : Help.lista_produtos) {
+			if (p.getCod_barras().equals(cod_bar)) {
+				ItemVenda iv = new ItemVenda();
+				iv.setProduto(p);
+				iv.setQuantidade_produto(qtd);
+				getLista_produtos().add(iv);
+				return true;
+			}
+		}
+		return false;
 	}
 
-	public void removerItem(ItemVenda iv) {
-
+	public boolean removerItem(String cod_bar) {
+		for(ItemVenda iv : this.lista_produtos) {
+			if(iv.getProduto().getCod_barras().equals(cod_bar)) {
+				getLista_produtos().remove(iv);
+				return true;
+			}
+		}
+		return false;
 	}
 
-	public void alterarQuantidade(ItemVenda iv, int novaQtd) {
-
+	public boolean alterarQuantidade(String cod_bar, int novaQtd) {
+		for(ItemVenda iv : this.lista_produtos) {
+			if(iv.getProduto().getCod_barras().equals(cod_bar)) {
+				iv.setQuantidade_produto(novaQtd);
+				return true;
+			}
+		}
+		System.out.println("Não foi possível alterar a quantidade do produto... :(");
+		return false;
 	}
 
 	public void subtrairVendaDoEstoque() {

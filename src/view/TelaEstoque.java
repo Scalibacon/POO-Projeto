@@ -56,9 +56,14 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		table.setBackground(Color.WHITE);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				btnAlterar.setEnabled(true);
-				btnExcluir.setEnabled(true);
-				carregarDetail(table.getSelectedRow());
+				if (table.getSelectedRow() >= 0) {
+					btnAlterar.setEnabled(true);
+					btnExcluir.setEnabled(true);
+					carregarDetail(table.getSelectedRow());
+				}else {
+					btnAlterar.setEnabled(false);
+					btnExcluir.setEnabled(false);
+				}
 			}
 		});
 		scrollTable.setViewportView(table);
@@ -85,84 +90,84 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		painel.add(btnNovo);
 
 		controller = new EstoqueController(table);
-		
+
 		JPanel panelDetail = new JPanel();
 		panelDetail.setBackground(Color.WHITE);
 		panelDetail.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelDetail.setBounds(720, 80, 335, 475);
 		painel.add(panelDetail);
 		panelDetail.setLayout(null);
-		
+
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNome.setBounds(10, 10, 240, 20);
 		panelDetail.add(lblNome);
-		
+
 		txtNome = new JTextField();
 		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtNome.setEditable(false);
 		txtNome.setBounds(10, 40, 315, 25);
 		panelDetail.add(txtNome);
 		txtNome.setColumns(10);
-		
+
 		JLabel lblCategoria = new JLabel("Categoria");
 		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblCategoria.setBounds(10, 75, 240, 20);
 		panelDetail.add(lblCategoria);
-		
+
 		txtCategoria = new JTextField();
 		txtCategoria.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCategoria.setEditable(false);
 		txtCategoria.setColumns(10);
 		txtCategoria.setBounds(10, 100, 315, 25);
 		panelDetail.add(txtCategoria);
-		
+
 		txtPreco = new JTextField();
 		txtPreco.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtPreco.setEditable(false);
 		txtPreco.setColumns(10);
 		txtPreco.setBounds(10, 165, 315, 25);
 		panelDetail.add(txtPreco);
-		
+
 		JLabel lblPreco = new JLabel("Pre\u00E7o");
 		lblPreco.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPreco.setBounds(10, 140, 240, 20);
 		panelDetail.add(lblPreco);
-		
+
 		txtCodBarras = new JTextField();
 		txtCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtCodBarras.setEditable(false);
 		txtCodBarras.setColumns(10);
 		txtCodBarras.setBounds(10, 230, 315, 25);
 		panelDetail.add(txtCodBarras);
-		
+
 		JLabel lblCodBarras = new JLabel("C\u00F3digo de Barras");
 		lblCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblCodBarras.setBounds(10, 200, 240, 20);
 		panelDetail.add(lblCodBarras);
-		
+
 		txtQtdEstoque = new JTextField();
 		txtQtdEstoque.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtQtdEstoque.setEditable(false);
 		txtQtdEstoque.setColumns(10);
 		txtQtdEstoque.setBounds(10, 290, 315, 25);
 		panelDetail.add(txtQtdEstoque);
-		
+
 		JLabel lblQtdEstoque = new JLabel("Quantidade Estoque");
 		lblQtdEstoque.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblQtdEstoque.setBounds(10, 265, 240, 20);
 		panelDetail.add(lblQtdEstoque);
-		
+
 		JLabel lblDescricao = new JLabel("Descri\u00E7\u00E3o");
 		lblDescricao.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblDescricao.setBounds(10, 325, 240, 20);
 		panelDetail.add(lblDescricao);
-		
+
 		JScrollPane scrollDesc = new JScrollPane();
 		scrollDesc.setBounds(10, 360, 315, 105);
 		scrollDesc.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panelDetail.add(scrollDesc);
-		
+
 		txtDesc = new JTextArea();
 		txtDesc.setEditable(false);
 		txtDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -170,7 +175,7 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		controller.iniciarTabelaEstoque();
 		controller.carregarTabela();
 	}
-	
+
 	public void carregarDetail(int rowla) {
 		Produto p = controller.buscarProduto(table.getValueAt(rowla, 4).toString());
 		txtNome.setText(p.getNome());
