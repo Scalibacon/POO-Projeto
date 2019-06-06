@@ -8,11 +8,20 @@ import controller.Help;
 
 public class Venda {
 
+	private int id;
 	private double total;
 	private Date data;
 	private SituacaoVenda situacao;
 	private List<ItemVenda> lista_produtos = new ArrayList<ItemVenda>();
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public double getTotal() {
 		return total;
 	}
