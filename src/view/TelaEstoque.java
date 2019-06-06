@@ -7,6 +7,8 @@ import controller.EstoqueController;
 import model.Produto;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -27,7 +29,7 @@ public class TelaEstoque extends JDialog implements ActionListener {
 	private JPanel painel;
 	private JTable table;
 	private JButton btnNovo, btnExcluir, btnEstocar, btnAlterar;
-	private EstoqueController controller;
+	private EstoqueController controller = new EstoqueController();
 	private JTextField txtNome, txtCategoria, txtPreco, txtCodBarras, txtQtdEstoque;
 	private JTextArea txtDesc;
 
@@ -56,17 +58,19 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		table.setBackground(Color.WHITE);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
+				System.out.println(table.getSelectedRow());
 				if (table.getSelectedRow() >= 0) {
 					btnAlterar.setEnabled(true);
 					btnExcluir.setEnabled(true);
 					carregarDetail(table.getSelectedRow());
-				}else {
+				} else {
 					btnAlterar.setEnabled(false);
 					btnExcluir.setEnabled(false);
 				}
 			}
 		});
 		scrollTable.setViewportView(table);
+		atualizarTabela();
 
 		btnEstocar = new JButton("Estocar");
 		btnEstocar.setBounds(220, 80, 90, 25);
@@ -88,8 +92,6 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		btnNovo.setBounds(55, 80, 90, 25);
 		btnNovo.addActionListener(this);
 		painel.add(btnNovo);
-
-		controller = new EstoqueController(table);
 
 		JPanel panelDetail = new JPanel();
 		panelDetail.setBackground(Color.WHITE);
@@ -172,8 +174,7 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		txtDesc.setEditable(false);
 		txtDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		scrollDesc.setViewportView(txtDesc);
-		controller.iniciarTabelaEstoque();
-		controller.carregarTabela();
+
 	}
 
 	public void carregarDetail(int rowla) {
@@ -186,16 +187,37 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		txtDesc.setText(p.getDescricao());
 	}
 
+	public void atualizarTabela() {
+		controller = new EstoqueController();
+		table.setModel(controller);
+	}
+
+	public void abrirTelaCadastro(boolean isAlterar) {
+		if (isAlterar) {
+			Produto p = controller.buscarProduto((String) controller.getValueAt(table.getSelectedRow(), 4));
+			JDialog tela_add_produto = new TelaCadastroProduto(p);
+			tela_add_produto.setModal(true);
+			tela_add_produto.setVisible(true);
+		} else {
+			JDialog tela_add_produto = new TelaCadastroProduto(null);
+			tela_add_produto.setModal(true);
+			tela_add_produto.setVisible(true);
+		}
+
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNovo) {
-			controller.adicionarNovoProduto();
+			controller.adicionarOuAlterarProduto(null);
 		} else if (e.getSource() == btnAlterar) {
-			controller.alterarProduto();
-		} else if (e.getSource() == btnAlterar) {
-			System.out.println("Desculpe, mas a função não está disponível no momento");
+			Produto produto = controller.buscarProduto((String) controller.getValueAt(table.getSelectedRow(), 4));
+			controller.adicionarOuAlterarProduto(produto);
 		} else if (e.getSource() == btnExcluir) {
-			controller.excluirProduto();
+			if (JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir esse produto?") == 0) {
+				controller.excluirProduto(table.getSelectedRow());
+			}
 		}
 	}
+
 }

@@ -3,7 +3,6 @@ package view;
 import javax.swing.JPanel;
 
 import controller.CadastroProdutoController;
-import controller.EstoqueController;
 import model.Categoria;
 import model.Produto;
 
@@ -28,11 +27,9 @@ public class TelaCadastroProduto extends JDialog implements ActionListener {
 	private JTextArea txtDescricao;
 	private JButton btnFinalizar;
 	private CadastroProdutoController controller = new CadastroProdutoController();
-	private EstoqueController ec;
 	private Produto p;
 
-	public TelaCadastroProduto(EstoqueController ec, Produto p) {
-		this.ec = ec;
+	public TelaCadastroProduto(Produto p) {
 		this.p = p;
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -118,9 +115,11 @@ public class TelaCadastroProduto extends JDialog implements ActionListener {
 		if (p != null) {
 			produtoToTela(p);
 			btnFinalizar.setText("Alterar");
+			lblCadastroDeProduto.setText("ALTERAR PRODUTO");
 			txtCodBarras.setEditable(false);
 		} else {
 			btnFinalizar.setText("Cadastrar");
+			lblCadastroDeProduto.setText("CADASTRO DE PRODUTO");
 		}
 	}
 
@@ -132,8 +131,6 @@ public class TelaCadastroProduto extends JDialog implements ActionListener {
 			}else {
 				controller.alterarProduto(p.getCod_barras());
 			}
-			
-			ec.carregarTabela();
 			this.dispose();
 		}
 	}
@@ -145,6 +142,7 @@ public class TelaCadastroProduto extends JDialog implements ActionListener {
 		p.setPreco(Double.parseDouble(txtPreco.getText()));
 		p.setQuantidade_estoque(Integer.parseInt(txtQtd.getText()));
 		p.setCod_barras(txtCodBarras.getText());
+		p.setDescricao(txtDescricao.getText());
 
 		return p;
 	}
