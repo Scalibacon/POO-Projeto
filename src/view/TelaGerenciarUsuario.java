@@ -114,9 +114,7 @@ public class TelaGerenciarUsuario extends JDialog implements ActionListener{
 			}
 		});
 		btnExcluir1.setBounds(612, 89, 89, 23);
-		painel.add(btnExcluir1);
-		controller.iniciarTabela();
-		controller.carregarTabela();	
+		painel.add(btnExcluir1);	
 		
 	}
 	
