@@ -7,17 +7,20 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import model.Estoquista;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 
-public class TelaGerenciarUsuario2 extends JDialog {
+public class TelaCadastroUsuario extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNome, txtCpf, txtRua, txtNumero, txtCidade, txtEstado, txtTelefone, txtCelular, txtBairro,
 			txtSenha;
 
-	public TelaGerenciarUsuario2() {
+	public TelaCadastroUsuario(Estoquista est) {
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 700);
