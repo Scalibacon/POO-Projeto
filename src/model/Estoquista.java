@@ -125,6 +125,5 @@ public class Estoquista {
 	}
 
 	public void visualizarEstoque() {
-
 	}
 }
