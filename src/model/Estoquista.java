@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dao.DAOException;
 import dao.ProdutoDAO;
 import dao.ProdutoDAOImpl;
@@ -124,6 +127,16 @@ public class Estoquista {
 		}
 	}
 
-	public void visualizarEstoque() {
+	public List<Produto> visualizarEstoque() {
+		List<Produto> produtos = new ArrayList<Produto>();
+		ProdutoDAO proDAO = new ProdutoDAOImpl();
+
+		try {
+			produtos = proDAO.buscarTodosProdutos();
+			return produtos;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

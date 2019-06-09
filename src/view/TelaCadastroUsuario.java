@@ -169,7 +169,7 @@ public class TelaCadastroUsuario extends JDialog implements ActionListener{
 				System.out.println("TCU aqui1");
 				controller.adicionarNovoUsuario(telaToUsuario());
 			}else {
-				controller.alterarUsuario(est.getCpf());
+				controller.alterarUsuario(telaToUsuario(), est.getCpf());
 			}
 			this.dispose();
 		}
@@ -204,8 +204,9 @@ public class TelaCadastroUsuario extends JDialog implements ActionListener{
 		
 	}
 	
+	//A senha gerada são os 3 primeiros dígitos do cpf + os 2 últimos
 	public String gerarSenha(String cpf) {
-		String senha = MD5.getMd5(cpf.substring(0,2) + cpf.substring(9,10));
+		String senha = MD5.getMd5(cpf.substring(0,3) + cpf.substring(9,11));
 		return senha;
 	}
 }

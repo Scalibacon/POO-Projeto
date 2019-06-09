@@ -11,7 +11,7 @@ public interface FuncionarioDAO {
 	
 	void inserirFuncionario(Estoquista est) throws DAOException;
 	
-	void alterarFuncionario(String cpf) throws DAOException;
+	void alterarFuncionario(Estoquista est, String cpf) throws DAOException;
 	
 	void excluirFuncionario(String cpf) throws DAOException;
 }

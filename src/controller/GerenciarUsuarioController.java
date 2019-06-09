@@ -41,6 +41,7 @@ public class GerenciarUsuarioController extends AbstractTableModel {
 		if(Help.logado instanceof Administrador) {
 			((Administrador) Help.logado).excluirUsuário(cpf);
 		}
+		atualizarListausuarios();
 		fireTableDataChanged();
 	}
 	
@@ -50,11 +51,11 @@ public class GerenciarUsuarioController extends AbstractTableModel {
 			tela_add_estoquista.setModal(true);
 			tela_add_estoquista.setVisible(true);
 		} else {
-			System.out.println("Cadastrar");
 			JDialog tela_add_estoquista = new TelaCadastroUsuario(null);
 			tela_add_estoquista.setModal(true);
 			tela_add_estoquista.setVisible(true);
 		}
+		atualizarListausuarios();
 		fireTableDataChanged();
 	}	
 

@@ -1,9 +1,10 @@
 package controller;
 
-import model.*;
+import model.Administrador;
+import model.Estoquista;
 
 public class Help {
 
-	public static Estoquista logado;
+	public static Estoquista logado = new Administrador();
 	
 }

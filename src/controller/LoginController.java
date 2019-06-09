@@ -24,8 +24,6 @@ public class LoginController {
 			e1.printStackTrace();
 		}
 		for (Estoquista e : listaUsers) {
-			System.out.println("CPF -> " + e.getCpf() + " - " + cpf
-					+ "/nSenha -> " + e.getSenha() + " - " + MD5.getMd5(senha));
 			if (cpf.equals(e.getCpf()) && MD5.getMd5(senha).equals(e.getSenha())) {
 				Estoquista est;
 
@@ -42,9 +40,18 @@ public class LoginController {
 				default:
 					est = new Estoquista();
 				}
-
-				est = e;
+				est.setPrivilegio((e.getPrivilegio()));
+				est.setNome(e.getNome());
+				est.setCpf(e.getCpf());
+				est.setRua(e.getRua());
+				est.setNumero(e.getNumero());
+				est.setBairro(e.getBairro());
+				est.setCidade(e.getCidade());
+				est.setEstado(e.getEstado());
+				est.setTelefone(e.getTelefone());
+				est.setSenha(e.getSenha());
 				Help.logado = est;
+				System.out.println(Help.logado.getClass().getName());
 				TelaMenu menu = new TelaMenu();
 				menu.setVisible(true);
 				return true;
