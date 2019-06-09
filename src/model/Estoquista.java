@@ -1,10 +1,12 @@
 package model;
 
-import controller.Help;
+import dao.DAOException;
+import dao.ProdutoDAO;
+import dao.ProdutoDAOImpl;
 
 public class Estoquista {
 
-	private int privilegio;
+	private Privilegio privilegio;
 	private String cpf;
 	private String nome;
 	private String rua;
@@ -87,29 +89,39 @@ public class Estoquista {
 		this.senha = senha;
 	}
 
-	public int getPrivilegio() {
+	public Privilegio getPrivilegio() {
 		return privilegio;
 	}
 
-	public void setPrivilegio(int privilegio) {
+	public void setPrivilegio(Privilegio privilegio) {
 		this.privilegio = privilegio;
 	}
 
 	public void adicionarProduto(Produto p) {
-		Help.lista_produtos.add(p);
-	}
-
-	public void excluirProduto(String cod_barras) {
-		for(Produto p : Help.lista_produtos) {
-			if(p.getCod_barras().equals(cod_barras)) {
-				Help.lista_produtos.remove(p);
-				return;
-			}
+		ProdutoDAO proDAO = new ProdutoDAOImpl();
+		try {
+			proDAO.inserirProduto(p);
+		} catch (DAOException e) {
+			e.printStackTrace();
 		}
 	}
 
-	public void alterarProduto(Produto p) {
+	public void excluirProduto(String cod_barras) {
+		ProdutoDAO proDAO = new ProdutoDAOImpl();
+		try {
+			proDAO.excluirProduto(cod_barras);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+	}
 
+	public void alterarProduto(Produto p, String cod_barras) {
+		ProdutoDAO proDAO = new ProdutoDAOImpl();
+		try {
+			proDAO.alterarProduto(p, cod_barras);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void visualizarEstoque() {

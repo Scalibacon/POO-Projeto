@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 import controller.Help;
 import controller.MenuController;
+import model.Privilegio;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -71,7 +72,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		lblVenda.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVenda.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblVenda.setBounds(240, 155, 125, 20);
-		if (!controller.verificaPrivilegio(1)) {
+		if (!controller.verificaPrivilegio(Privilegio.CAIXA)) {
 			lblVenda.setForeground(new Color(135, 135, 135));
 		}
 		lblVenda.addMouseListener(new MouseAdapter() {
@@ -95,7 +96,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		lblGerenciarUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGerenciarUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblGerenciarUsuarios.setBounds(55, 350, 125, 20);
-		if (!controller.verificaPrivilegio(2)) {
+		if (!controller.verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
 			lblGerenciarUsuarios.setForeground(new Color(133, 133, 133));
 		}
 		lblGerenciarUsuarios.addMouseListener(new MouseAdapter() {
@@ -119,7 +120,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		lblVisualizarRelatrios.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVisualizarRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblVisualizarRelatrios.setBounds(240, 350, 125, 20);
-		if (!controller.verificaPrivilegio(2)) {
+		if (!controller.verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
 			lblVisualizarRelatrios.setForeground(new Color(133, 133, 133));
 		}
 		lblVisualizarRelatrios.addMouseListener(new MouseAdapter() {

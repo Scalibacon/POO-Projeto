@@ -10,7 +10,15 @@ public class Administrador extends Caixa {
 
 	}
 
-	public void gerenciarUsuario() {
+	public void criarUsuario(Estoquista est) {
+		// Help.lista_usuarios.add(est);
+	}
+
+	public void alterarUsuario(String cpf) {
+
+	}
+
+	public void excluirUsuário(String cpf) {
 
 	}
 

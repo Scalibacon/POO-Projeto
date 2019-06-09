@@ -5,31 +5,42 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.table.AbstractTableModel;
 
+import dao.DAOException;
+import dao.FuncionarioDAO;
+import dao.FuncionarioDAOImpl;
+import model.Administrador;
 import model.Estoquista;
 import view.TelaCadastroUsuario;
 
 public class GerenciarUsuarioController extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private String[] colunas = { "Nome", "CPF", "Tipo", "Telefone" };
+	private String[] colunas = { "Nome", "CPF", "Tipo", "Telefone"};
 	private List<Estoquista> usuarios;
 	private final int COLUNA_NOME = 0;
 	private final int COLUNA_CPF = 1;
 	private final int COLUNA_TIPO = 2;
 	private final int COLUNA_TELEFONE = 3;
+	private FuncionarioDAO funcDAO;
 
 	public GerenciarUsuarioController() {
 		atualizarListausuarios();
 	}
 
 	public void atualizarListausuarios() {
-		this.usuarios = Help.lista_usuarios;
+		funcDAO = new FuncionarioDAOImpl();
+		try {
+			this.usuarios = funcDAO.buscarTodosFuncionarios();
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void excluirUsuario(int row) {
 		String cpf = (String) getValueAt(row, 1);
-		// Help.logado.excluirUsuario(cpf);
-		System.out.println("Exclusão de usuário ainda não implementada (" + cpf + ")  :(");
+		if(Help.logado instanceof Administrador) {
+			((Administrador) Help.logado).excluirUsuário(cpf);
+		}
 		fireTableDataChanged();
 	}
 	
@@ -39,6 +50,7 @@ public class GerenciarUsuarioController extends AbstractTableModel {
 			tela_add_estoquista.setModal(true);
 			tela_add_estoquista.setVisible(true);
 		} else {
+			System.out.println("Cadastrar");
 			JDialog tela_add_estoquista = new TelaCadastroUsuario(null);
 			tela_add_estoquista.setModal(true);
 			tela_add_estoquista.setVisible(true);

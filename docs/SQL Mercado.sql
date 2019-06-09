@@ -16,6 +16,14 @@ create table funcionario(
 	primary key (cpf)
 )
 
+insert into funcionario(cpf, nome, senha, rua, numero, bairro, cidade, estado, cep, telefone, privilegio)
+	values('12312312312', 'Matheus F. Nascimento', '827ccb0eea8a706c4c34a16891f84e7b', 'Rua1', 123, 'Itaquera', 'São Paulo',
+						'SP', 08240660, '11981116773', 2)
+
+insert into funcionario(cpf, nome, senha, rua, numero, bairro, cidade, estado, cep, telefone, privilegio)
+	values('32132132132', 'Evandson S. Cruz', '01cfcd4f6b8770febfb40cb906715822', 'Rua2', 321, 'Itaqua', 'São Paulo',
+						'SP', 32132132, '11321321321', 0)
+
 create table produto(
 	codigo_barras varchar(50) not null,
 	nome varchar(50) not null,
@@ -25,6 +33,21 @@ create table produto(
 	descricao varchar(max),
 	primary key (codigo_barras)
 )
+
+insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
+values('0001', 'Arroz Prato Fino 10kg', 5, 15.99, 50, 'Soltinho igual o Veigar do Scalibacon')
+
+insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
+values('0002', 'Papel Alumínio 10m', 8, 7.50, 50, 'Platinado e resistente')
+
+insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
+values('0003', 'Max Steel Boexeador', 12, 24.99, 34, 'Criado pra dar muitos socos nos Elementors')
+
+insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
+values('0004', 'Queijo Mussarela', 5, 26.95, 50, 'Gostoso e bem amarelinho')
+
+insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
+values('0005', 'Papel Higiênico Neve 12', 4, 13.99, 38, 'Bem macio, perfeito pra dar aquela garibada nos glúteos')
 
 create table venda(
 	id int identity(1,1) not null,
@@ -57,6 +80,5 @@ create table alteracaoestoque(
 	foreign key (funcionario_cpf) references funcionario(cpf),
 	foreign key (produto_codigo_barras) references produto(codigo_barras)
 )
-
 
 

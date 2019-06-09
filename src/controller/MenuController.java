@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.JDialog;
 
+import model.Privilegio;
 import view.TelaEstoque;
 import view.TelaGerenciarUsuario;
 import view.TelaRelatorio;
@@ -14,8 +15,8 @@ public class MenuController {
 		tela.setVisible(true);
 	}
 
-	public boolean verificaPrivilegio(int requisito) {
-		if (Help.logado.getPrivilegio() >= requisito)
+	public boolean verificaPrivilegio(Privilegio requisito) {
+		if (Help.logado.getPrivilegio().getValor() >= requisito.getValor())
 			return true;
 		else
 			return false;
@@ -27,7 +28,7 @@ public class MenuController {
 	}
 
 	public void abrirVenda() {
-		if (verificaPrivilegio(1)) {
+		if (verificaPrivilegio(Privilegio.CAIXA)) {
 			JDialog tela = new TelaVenda();
 			abrirModal(tela);
 		} else {
@@ -36,7 +37,7 @@ public class MenuController {
 	}
 
 	public void abrirUsuarios() {
-		if (verificaPrivilegio(2)) {
+		if (verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
 			JDialog tela = new TelaGerenciarUsuario();
 			abrirModal(tela);
 		} else {
@@ -45,7 +46,7 @@ public class MenuController {
 	}
 
 	public void abrirRelatorios() {
-		if (verificaPrivilegio(2)) {
+		if (verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
 			JDialog tela = new TelaRelatorio();
 			abrirModal(tela);
 		} else {

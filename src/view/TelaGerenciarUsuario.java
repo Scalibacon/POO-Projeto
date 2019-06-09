@@ -39,13 +39,30 @@ public class TelaGerenciarUsuario extends JDialog implements ActionListener {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 130, 130));
-		panel.setBounds(0, 0, 924, 50);
+		panel.setBounds(0, 0, 935, 50);
 		painel.add(panel);
 
 		JLabel lblGerenciarUsuarios = new JLabel("GERENCIAR USU\u00C1RIOS");
 		lblGerenciarUsuarios.setForeground(Color.WHITE);
 		lblGerenciarUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 38));
 		panel.add(lblGerenciarUsuarios);
+
+		btnCriar = new JButton("Criar");		
+		btnCriar.setBounds(10, 85, 90, 25);
+		btnCriar.addActionListener(this);
+		painel.add(btnCriar);
+
+		btnAlterar = new JButton("Alterar");		
+		btnAlterar.setBounds(245, 85, 90, 25);
+		btnAlterar.addActionListener(this);
+		btnAlterar.setEnabled(false);
+		painel.add(btnAlterar);
+
+		btnExcluir = new JButton("Excluir");		
+		btnExcluir.setBounds(470, 85, 90, 25);
+		btnExcluir.addActionListener(this);
+		btnExcluir.setEnabled(false);
+		painel.add(btnExcluir);
 
 		JScrollPane scroll = new JScrollPane();
 		scroll.setBounds(10, 135, 550, 435);
@@ -59,7 +76,7 @@ public class TelaGerenciarUsuario extends JDialog implements ActionListener {
 				if (tabela.getSelectedRow() >= 0) {
 					btnAlterar.setEnabled(true);
 					btnExcluir.setEnabled(true);
-					// carregarDetail(tabela.getSelectedRow());
+					carregarDetail(tabela.getSelectedRow());
 				} else {
 					btnAlterar.setEnabled(false);
 					btnExcluir.setEnabled(false);
@@ -68,23 +85,6 @@ public class TelaGerenciarUsuario extends JDialog implements ActionListener {
 		});
 		scroll.setViewportView(tabela);
 		atualizarTabela();
-
-		JButton btnCriar = new JButton("Criar");
-		btnCriar.addActionListener(this);
-		btnCriar.setBounds(10, 85, 90, 25);
-		painel.add(btnCriar);
-
-		JButton btnAlterar = new JButton("Alterar");
-		btnAlterar.addActionListener(this);
-		btnAlterar.setBounds(245, 85, 90, 25);
-		btnAlterar.setEnabled(false);
-		painel.add(btnAlterar);
-
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(this);
-		btnExcluir.setBounds(470, 85, 90, 25);
-		btnExcluir.setEnabled(false);
-		painel.add(btnExcluir);
 
 		JPanel painelDetail = new JPanel();
 		painelDetail.setBackground(Color.WHITE);
@@ -176,6 +176,17 @@ public class TelaGerenciarUsuario extends JDialog implements ActionListener {
 		tabela.setModel(controller);
 	}
 
+	public void carregarDetail(int rowla) {
+		Estoquista est = controller.buscarUsuario(tabela.getValueAt(rowla, 1).toString());
+		txtNome.setText(est.getNome());
+		txtCpf.setText(est.getCpf());
+		txtEndereco.setText(est.getRua() + " nº " + est.getNumero());
+		txtBairro.setText(est.getBairro());
+		txtCidade.setText(est.getCidade() + " - " + est.getEstado());
+		txtTelefone.setText(est.getTelefone());
+		txtPrivilegio.setText(est.getPrivilegio().name());
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCriar) {
@@ -184,7 +195,7 @@ public class TelaGerenciarUsuario extends JDialog implements ActionListener {
 			Estoquista est = controller.buscarUsuario((String) controller.getValueAt(tabela.getSelectedRow(), 1));
 			controller.adicionarOuAlterarUsuario(est);
 		} else if (e.getSource() == btnExcluir) {
-			if (JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir esse funcionárioo?") == 0) {
+			if (JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir esse funcionário?") == 0) {
 				controller.excluirUsuario(tabela.getSelectedRow());
 			}
 		}

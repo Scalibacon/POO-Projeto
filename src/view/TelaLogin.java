@@ -1,13 +1,10 @@
 package view;
 
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
-
-import controller.Help;
 import controller.LoginController;
 
 import javax.swing.JLabel;
@@ -31,8 +28,6 @@ public class TelaLogin extends JFrame implements ActionListener {
 	LoginController controller = new LoginController();
 
 	public static void main(String[] args) {
-
-		Help.preencheListas();
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Exception e) {
@@ -66,11 +61,12 @@ public class TelaLogin extends JFrame implements ActionListener {
 		txtCpf = new JTextField();
 		txtCpf.setBounds(85, 50, 150, 25);
 		painel.add(txtCpf);
-		txtCpf.setColumns(10);
+		txtCpf.addActionListener(this);
 
 		txtSenha = new JPasswordField();
 		txtSenha.setColumns(10);
 		txtSenha.setBounds(85, 90, 150, 25);
+		txtSenha.addActionListener(this);
 		painel.add(txtSenha);
 
 		ImageIcon imgLogo = new ImageIcon(
@@ -95,12 +91,12 @@ public class TelaLogin extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnEntrar) {
+		if (e.getSource() == btnEntrar || e.getSource() == txtSenha || e.getSource() == txtCpf) {
 			String cpf = txtCpf.getText();
 			String senha = String.valueOf(txtSenha.getPassword());
 			if (controller.logar(cpf, senha)) {
 				this.dispose();
 			}
-		}
+		} 
 	}
 }

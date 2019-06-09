@@ -1,19 +1,18 @@
 package dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import model.Produto;
 
 public interface ProdutoDAO {
-	List<Produto> buscarTodosProdutos() throws SQLException;
+	List<Produto> buscarTodosProdutos() throws DAOException;
 
-	Produto buscarProduto(String cod_barras) throws SQLException;
+	Produto buscarProduto(String cod_barras) throws DAOException;
 
-	void inserirProduto(Produto p) throws SQLException;
+	void inserirProduto(Produto p) throws DAOException;
 
-	void alterarProduto(String cod_barras) throws SQLException;
+	void alterarProduto(Produto p, String cod_barras) throws DAOException;
 
-	void excluirProduto(String cod_barras) throws SQLException;
+	void excluirProduto(String cod_barras) throws DAOException;
 
 }

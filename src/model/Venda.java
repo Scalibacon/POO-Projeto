@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import controller.Help;
-
 public class Venda {
 
 	private int id;
@@ -21,7 +19,7 @@ public class Venda {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public double getTotal() {
 		return total;
 	}
@@ -49,36 +47,36 @@ public class Venda {
 	public void setLista_produtos(List<ItemVenda> lista_produtos) {
 		this.lista_produtos = lista_produtos;
 	}
-	
+
 	public double calcularTotal() {
-		for(ItemVenda iv : this.getLista_produtos()) {
+		for (ItemVenda iv : this.getLista_produtos()) {
 			this.total += iv.getProduto().getPreco() * iv.getQuantidade_produto();
 		}
 		return total;
 	}
 
 	public boolean adicionarItem(String cod_bar, int qtd) {
-		for(ItemVenda iv : this.lista_produtos) {
-			if(iv.getProduto().getCod_barras().equals(cod_bar)) {
-				System.out.println("Produto já adicionado na lista :X");
-				return false;
-			}
-		}
-		for (Produto p : Help.lista_produtos) {
-			if (p.getCod_barras().equals(cod_bar)) {
-				ItemVenda iv = new ItemVenda();
-				iv.setProduto(p);
-				iv.setQuantidade_produto(qtd);
-				getLista_produtos().add(iv);
-				return true;
-			}
-		}
+//		for(ItemVenda iv : this.lista_produtos) {
+//			if(iv.getProduto().getCod_barras().equals(cod_bar)) {
+//				System.out.println("Produto já adicionado na lista :X");
+//				return false;
+//			}
+//		}
+//		for (Produto p : Help.lista_produtos) {
+//			if (p.getCod_barras().equals(cod_bar)) {
+//				ItemVenda iv = new ItemVenda();
+//				iv.setProduto(p);
+//				iv.setQuantidade_produto(qtd);
+//				getLista_produtos().add(iv);
+//				return true;
+//			}
+//		}
 		return false;
 	}
 
 	public boolean removerItem(String cod_bar) {
-		for(ItemVenda iv : this.lista_produtos) {
-			if(iv.getProduto().getCod_barras().equals(cod_bar)) {
+		for (ItemVenda iv : this.lista_produtos) {
+			if (iv.getProduto().getCod_barras().equals(cod_bar)) {
 				getLista_produtos().remove(iv);
 				return true;
 			}
@@ -87,8 +85,8 @@ public class Venda {
 	}
 
 	public boolean alterarQuantidade(String cod_bar, int novaQtd) {
-		for(ItemVenda iv : this.lista_produtos) {
-			if(iv.getProduto().getCod_barras().equals(cod_bar)) {
+		for (ItemVenda iv : this.lista_produtos) {
+			if (iv.getProduto().getCod_barras().equals(cod_bar)) {
 				iv.setQuantidade_produto(novaQtd);
 				return true;
 			}

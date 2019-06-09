@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -8,13 +7,13 @@ import model.AlteracaoEstoque;
 import model.Estoquista;
 
 public interface AlteracaoEstoqueDAO {
-	List<AlteracaoEstoque> buscarTodasAlteracoes() throws SQLException;
+	List<AlteracaoEstoque> buscarTodasAlteracoes() throws DAOException;
 
-	Estoquista buscarAlteracaoPorPeriodo(Calendar inicio, Calendar fim) throws SQLException;
+	Estoquista buscarAlteracaoPorPeriodo(Calendar inicio, Calendar fim) throws DAOException;
 
-	void inserirAlteracao(AlteracaoEstoque ae) throws SQLException;
+	void inserirAlteracao(AlteracaoEstoque ae) throws DAOException;
 
-	void alterarAlteracao(int id) throws SQLException;
+	void alterarAlteracao(int id) throws DAOException;
 
-	void excluirAlteracao(int id) throws SQLException;
+	void excluirAlteracao(int id) throws DAOException;
 }

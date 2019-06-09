@@ -5,6 +5,9 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.table.AbstractTableModel;
 
+import dao.DAOException;
+import dao.ProdutoDAO;
+import dao.ProdutoDAOImpl;
 import model.Produto;
 import view.TelaCadastroProduto;
 
@@ -17,18 +20,26 @@ public class EstoqueController extends AbstractTableModel {
 	private final int COLUNA_PRECO = 2;
 	private final int COLUNA_QTD_ESTOQUE = 3;
 	private final int COLUNA_COD_BARRAS = 4;
+	private ProdutoDAO proDAO;
 
 	public EstoqueController() {
 		atualizarListaProdutos();
 	}
 
 	public void atualizarListaProdutos() {
-		this.produtos = Help.lista_produtos;
+		proDAO = new ProdutoDAOImpl();
+		
+		try {
+			this.produtos = proDAO.buscarTodosProdutos();
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void excluirProduto(int row) {
 		String cod_barras = (String) getValueAt(row, 4);
 		Help.logado.excluirProduto(cod_barras);
+		atualizarListaProdutos();
 		fireTableDataChanged();
 	}
 	
@@ -42,6 +53,7 @@ public class EstoqueController extends AbstractTableModel {
 			tela_add_produto.setModal(true);
 			tela_add_produto.setVisible(true);
 		}
+		atualizarListaProdutos();
 		fireTableDataChanged();
 	}
 
