@@ -9,7 +9,7 @@ import view.TelaCadastroProduto;
 
 public class EstoqueController extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
-	private String[] colunas = { "Nome do produto", "Categoria", "Pre\u00E7o", "Qtd Estoque", "Cód. Barras" };
+	private String[] colunas = { "Nome do produto", "Categoria", "Preço", "Qtd Estoque", "Cód. Barras" };
 	private List<Produto> produtos;
 	private final int COLUNA_NOME = 0;
 	private final int COLUNA_CATEGORIA = 1;

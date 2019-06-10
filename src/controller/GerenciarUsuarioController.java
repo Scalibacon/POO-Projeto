@@ -24,10 +24,10 @@ public class GerenciarUsuarioController extends AbstractTableModel {
 	private FuncionarioDAO funcDAO;
 
 	public GerenciarUsuarioController() {
-		atualizarListausuarios();
+		atualizarListaUsuarios();
 	}
 
-	public void atualizarListausuarios() {
+	public void atualizarListaUsuarios() {
 		funcDAO = new FuncionarioDAOImpl();
 		try {
 			this.usuarios = funcDAO.buscarTodosFuncionarios();
@@ -41,7 +41,7 @@ public class GerenciarUsuarioController extends AbstractTableModel {
 		if(Help.logado instanceof Administrador) {
 			((Administrador) Help.logado).excluirUsuário(cpf);
 		}
-		atualizarListausuarios();
+		atualizarListaUsuarios();
 		fireTableDataChanged();
 	}
 	
@@ -55,7 +55,7 @@ public class GerenciarUsuarioController extends AbstractTableModel {
 			tela_add_estoquista.setModal(true);
 			tela_add_estoquista.setVisible(true);
 		}
-		atualizarListausuarios();
+		atualizarListaUsuarios();
 		fireTableDataChanged();
 	}	
 

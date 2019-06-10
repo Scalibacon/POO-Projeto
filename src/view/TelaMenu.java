@@ -26,7 +26,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 	public TelaMenu() {
 		setTitle("Sistema de Gerenciamento de Mercado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 440);
+		setBounds(100, 100, 600, 440);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(175, 240, 240));
 		setContentPane(contentPane);
@@ -35,7 +35,7 @@ public class TelaMenu extends JFrame implements ActionListener {
 		JLabel lblNome = new JLabel("Bem-Vindo, " + Help.logado.getNome());
 		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNome.setBounds(240, 10, 185, 15);
+		lblNome.setBounds(274, 10, 300, 15);
 		contentPane.add(lblNome);
 		ImageIcon imgEstoque = new ImageIcon(
 				new ImageIcon("img/estoque.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
@@ -129,11 +129,35 @@ public class TelaMenu extends JFrame implements ActionListener {
 			}
 		});
 		contentPane.add(lblVisualizarRelatrios);
+		
+		
+		ImageIcon imgSacola = new ImageIcon(
+				new ImageIcon("img/sacola.png").getImage().getScaledInstance(125, 125, Image.SCALE_DEFAULT));
+		JLabel imgVerVendas = new JLabel(imgSacola);
+		imgVerVendas.setBounds(425, 30, 125, 125);
+		imgVerVendas.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				controller.abrirListaVendas();
+			}
+		});
+		contentPane.add(imgVerVendas);		
+		JLabel lblVerificarVendas = new JLabel("Verificar Vendas");
+		lblVerificarVendas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVerificarVendas.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblVerificarVendas.setBounds(426, 155, 125, 20);
+		if (!controller.verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
+			lblVisualizarRelatrios.setForeground(new Color(133, 133, 133));
+		}
+		lblVerificarVendas.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				controller.abrirListaVendas();
+			}
+		});
+		contentPane.add(lblVerificarVendas);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 	}
-
 }

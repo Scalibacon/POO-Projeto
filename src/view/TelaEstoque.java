@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class TelaEstoque extends JDialog implements ActionListener {
 
@@ -167,7 +168,7 @@ public class TelaEstoque extends JDialog implements ActionListener {
 
 		JScrollPane scrollDesc = new JScrollPane();
 		scrollDesc.setBounds(10, 360, 315, 105);
-		scrollDesc.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollDesc.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panelDetail.add(scrollDesc);
 
 		txtDesc = new JTextArea();

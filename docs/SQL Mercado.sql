@@ -51,13 +51,21 @@ values('0005', 'Papel Higiênico Neve 12', 4, 13.99, 38, 'Bem macio, perfeito pra
 
 create table venda(
 	id int identity(1,1) not null,
-	data datetime not null,
-	situacao int not null default(1),
+	dataCompra datetime not null,
+	situacao int not null default(0),
 	total decimal(7,2) not null check(total > 0),
 	funcionario_cpf char(11) not null,
 	primary key (id),
 	foreign key (funcionario_cpf) references funcionario(cpf)
 )
+
+insert into venda(dataCompra, situacao, total, funcionario_cpf)
+values(getdate(), 1, 150, 12312312312)
+
+select v.id, v.dataCompra, v.situacao, v.total, f.nome
+from venda v
+inner join funcionario f
+on v.funcionario_cpf = f.cpf
 
 create table itemvenda(
 	venda_id int not null,
@@ -68,6 +76,14 @@ create table itemvenda(
 	foreign key (venda_id) references venda(id),
 	foreign key (produto_codigo_barras) references produto(codigo_barras)
 )
+
+insert into itemvenda(venda_id, produto_codigo_barras, qtde_produto, subtotal) 
+	values (1, '0004', 4, 17)
+
+SELECT iv.produto_codigo_barras, iv.qtde_produto, iv.subtotal, p.nome 
+					FROM itemvenda iv INNER JOIN produto p 
+					ON iv.produto_codigo_barras = p.codigo_barras 
+					WHERE iv.venda_id = 1
 
 create table alteracaoestoque(
 	id int identity(1,1) not null,

@@ -4,7 +4,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import controller.VendaController;
 
 import java.awt.Color;
@@ -31,7 +30,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 	private JTable tabela;
 	private JButton btnFinalizar;
 	private JTextField txtCodBarras;
-	private VendaController controller;
+	private VendaController controller = new VendaController();
 	private JTextField txtQtd;
 
 	public TelaVenda() {
@@ -78,8 +77,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 		contentPane.add(scrollPane);
 
 		tabela = new JTable();
-		tabela.setBackground(new Color(150, 250, 150));
-		tabela.setBounds(0, 135, 800, 380);
+		tabela.setBackground(Color.WHITE);
 		tabela.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				txtQtd.setEditable(true);
@@ -87,6 +85,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 			}
 		});
 		scrollPane.setViewportView(tabela);
+		atualizarTabela();
 
 		JPanel panelDown = new JPanel();
 		panelDown.setBackground(new Color(0, 130, 130));
@@ -124,8 +123,6 @@ public class TelaVenda extends JDialog implements ActionListener {
 		txtCodBarras.setBounds(195, 80, 320, 30);
 		contentPane.add(txtCodBarras);
 
-		controller = new VendaController(tabela);
-
 		JLabel lblQtd = new JLabel("Quantidade: ");
 		lblQtd.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblQtd.setBounds(290, 470, 115, 30);
@@ -162,8 +159,11 @@ public class TelaVenda extends JDialog implements ActionListener {
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNome.setBounds(20, 470, 115, 30);
 		contentPane.add(lblNome);
+	}
 
-		controller.iniciarTabelaItens();
+	private void atualizarTabela() {
+		controller = new VendaController();
+		tabela.setModel(controller);
 	}
 
 	public void atualizarCampos(int rowla) {

@@ -1,50 +1,25 @@
 package controller;
 
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
 
 import model.ItemVenda;
 import model.Venda;
 
-public class VendaController {
-	private JTable tabela;
+public class VendaController extends AbstractTableModel{
+	private static final long serialVersionUID = 1L;
+	private String[] colunas = { "Nome do produto", "Cód. Barras", "Qtde", "Subtotal"};
 	private Venda v = new Venda();
-
-	public VendaController(JTable tabela) {
-		this.tabela = tabela;
-	}
-
-	public void iniciarTabelaItens() {
-		tabela.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Produto", "Cod. Barras", "Preço", "Qtd", "Subtotal" }));
-
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(180);
-		tabela.getColumnModel().getColumn(1).setPreferredWidth(200);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(100);
-		tabela.getColumnModel().getColumn(3).setPreferredWidth(75);
-		tabela.getColumnModel().getColumn(4).setPreferredWidth(100);
-
-	}
-
-	public void carregarTabela() {
-		limparTabela();
-		DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-		for (ItemVenda iv : v.getLista_produtos()) {
-			model.addRow(new Object[] { iv.getProduto().getNome(), iv.getProduto().getCod_barras(),
-					"R$" + iv.getProduto().getPreco(), iv.getQuantidade_produto(),
-					iv.calcularSubtotal()});
-		}
-	}
-
-	public void limparTabela() {
-		tabela.clearSelection();
-		DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-		model.setRowCount(0);
-	}
+	private List<ItemVenda> itens_venda = v.getListaItens();
+	private final int COLUNA_NOME = 0;
+	private final int COLUNA_COD_BARRAS = 1;
+	private final int COLUNA_QTDE = 2;
+	private final int COLUNA_SUBTOTAL = 3;
 
 	public void adicionarItemVenda(String cod_barras) {		
 		if(v.adicionarItem(cod_barras, 1)) {
-			carregarTabela();
+			fireTableDataChanged();
 		}else {
 			System.out.println("Código de barras não encontrado... :(");
 		}		
@@ -52,21 +27,50 @@ public class VendaController {
 	
 	public void removerItemVenda(String cod_bar) {
 		if(v.removerItem(cod_bar)) {
-			carregarTabela();
 		}else {
 			System.out.println("Não foi possível remover o produto... :(");
 		}
 	}
 	
 	public void finalizarVenda() {
-		//Help.lista_vendas.add(v);
 		System.out.println("Venda realizada com sucesso");
-		limparTabela();
 	}
 
 	public void alterarQuantidade(String cod_bar, int novaQtd) {
 		if(v.alterarQuantidade(cod_bar, novaQtd)) {
-			carregarTabela();
+			
 		}
+	}
+	
+	@Override
+	public int getColumnCount() {
+		return colunas.length;
+	}
+
+	@Override
+	public int getRowCount() {
+		return itens_venda.size();
+	}
+
+	@Override
+	public String getColumnName(int indice) {
+		return colunas[indice];
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		ItemVenda iv = this.itens_venda.get(rowIndex);
+
+		switch (columnIndex) {
+		case COLUNA_NOME:
+			return iv.getProduto().getNome();
+		case COLUNA_COD_BARRAS:
+			return iv.getProduto().getCod_barras();
+		case COLUNA_QTDE:
+			return iv.getQuantidade_produto();
+		case COLUNA_SUBTOTAL:
+			return iv.getSubtotal();
+		}
+		return null;
 	}
 }

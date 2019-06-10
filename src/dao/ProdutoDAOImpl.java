@@ -40,7 +40,28 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 
 	@Override
 	public Produto buscarProduto(String cod_barras) throws DAOException {
-		return null;
+		try {
+			Produto produto = new Produto();
+			Connection conexao = ConnectionDB.getInstancia().conectar();
+			String sql = "SELECT codigo_barras, nome, categoria, preco, qtde_estoque, descricao FROM produto "
+					+ "WHERE codigo_barras = ?";
+			PreparedStatement stm = conexao.prepareStatement(sql);
+			stm.setString(1, cod_barras);
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()) {
+				produto.setNome(rs.getString("nome"));
+				produto.setCod_barras(rs.getString("codigo_barras"));
+				produto.setPreco(rs.getDouble("preco"));
+				produto.setQuantidade_estoque(rs.getInt("qtde_estoque"));
+				produto.setDescricao(rs.getString("descricao"));
+				produto.setCategoria(Categoria.buscaCategoria(rs.getInt("categoria")));
+			}
+			conexao.close();
+			return produto;
+		} catch (SQLException e) {			
+			e.printStackTrace();			
+			return null;
+		}
 	}
 
 	@Override

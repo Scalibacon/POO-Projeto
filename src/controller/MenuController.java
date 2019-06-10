@@ -5,6 +5,7 @@ import javax.swing.JDialog;
 import model.Privilegio;
 import view.TelaEstoque;
 import view.TelaGerenciarUsuario;
+import view.TelaListarVendas;
 import view.TelaRelatorio;
 import view.TelaVenda;
 
@@ -48,6 +49,15 @@ public class MenuController {
 	public void abrirRelatorios() {
 		if (verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
 			JDialog tela = new TelaRelatorio();
+			abrirModal(tela);
+		} else {
+			System.out.println("Desculpa " + Help.logado.getNome() + ", mas você não tem privilégios pra isso :(");
+		}
+	}
+	
+	public void abrirListaVendas() {
+		if (verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
+			JDialog tela = new TelaListarVendas();
 			abrirModal(tela);
 		} else {
 			System.out.println("Desculpa " + Help.logado.getNome() + ", mas você não tem privilégios pra isso :(");

@@ -1,10 +1,17 @@
 package model;
 
 public class ItemVenda {
-	private Produto produto;
+	
 	private int quantidade_produto;
 	private double subtotal;
+	private Produto produto;
 	
+	public double getSubtotal() {
+		return subtotal;
+	}
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
+	}
 	public Produto getProduto() {
 		return produto;
 	}

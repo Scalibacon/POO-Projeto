@@ -10,7 +10,7 @@ public class Administrador extends Caixa {
 
 	}
 
-	public void excluirVenda() {
+	public void excluirVenda(int id_venda) {
 
 	}
 
