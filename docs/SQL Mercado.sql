@@ -41,7 +41,7 @@ insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descric
 values('0002', 'Papel Alumínio 10m', 8, 7.50, 50, 'Platinado e resistente')
 
 insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
-values('0003', 'Max Steel Boexeador', 12, 24.99, 34, 'Criado pra dar muitos socos nos Elementors')
+values('0003', 'Max Steel Boxeador', 12, 24.99, 34, 'Criado pra dar muitos socos nos Elementors')
 
 insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
 values('0004', 'Queijo Mussarela', 5, 26.95, 50, 'Gostoso e bem amarelinho')
@@ -78,7 +78,7 @@ create table itemvenda(
 )
 
 insert into itemvenda(venda_id, produto_codigo_barras, qtde_produto, subtotal) 
-	values (1, '0004', 4, 17)
+	values (4, '0003', 3, 12)
 
 SELECT iv.produto_codigo_barras, iv.qtde_produto, iv.subtotal, p.nome 
 					FROM itemvenda iv INNER JOIN produto p 
@@ -87,7 +87,7 @@ SELECT iv.produto_codigo_barras, iv.qtde_produto, iv.subtotal, p.nome
 
 create table alteracaoestoque(
 	id int identity(1,1) not null,
-	data datetime not null, 
+	data_alter datetime not null, 
 	tipo int not null default(1),
 	quantidade int not null check(quantidade > 0),
 	funcionario_cpf char(11) not null,
@@ -97,4 +97,14 @@ create table alteracaoestoque(
 	foreign key (produto_codigo_barras) references produto(codigo_barras)
 )
 
+insert into alteracaoestoque(data_alter, tipo, quantidade, funcionario_cpf, produto_codigo_barras)
+	values(getdate(), 0, 25, '12312312312', '0003')
 
+select ae.data_alter, ae.tipo, ae.quantidade, f.nome, p.nome
+from alteracaoestoque ae
+inner join funcionario f
+on ae.funcionario_cpf = f.cpf
+inner join produto p
+on ae.produto_codigo_barras = p.codigo_barras
+
+select * from itemvenda

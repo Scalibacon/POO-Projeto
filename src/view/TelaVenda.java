@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -26,7 +27,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JLabel lblNome;
+	private JLabel lblNome, lblNovoItem, lblRetirar, lblTotal, imgRetirar;
 	private JTable tabela;
 	private JButton btnFinalizar;
 	private JTextField txtCodBarras;
@@ -57,17 +58,17 @@ public class TelaVenda extends JDialog implements ActionListener {
 		labelAdd.setBounds(525, 60, 50, 50);
 		labelAdd.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				controller.adicionarItemVenda(txtCodBarras.getText());
+				adicionarItemVenda();
 			}
 		});
 		contentPane.add(labelAdd);
 
-		JLabel lblNovoItem = new JLabel("Adicionar");
+		lblNovoItem = new JLabel("Adicionar");
 		lblNovoItem.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNovoItem.setBounds(570, 65, 115, 45);
 		lblNovoItem.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				controller.adicionarItemVenda(txtCodBarras.getText());
+				adicionarItemVenda();
 			}
 		});
 		contentPane.add(lblNovoItem);
@@ -80,8 +81,12 @@ public class TelaVenda extends JDialog implements ActionListener {
 		tabela.setBackground(Color.WHITE);
 		tabela.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				txtQtd.setEditable(true);
-				atualizarCampos(tabela.getSelectedRow());
+				if (tabela.getSelectedRow() >= 0) {
+					txtQtd.setEditable(true);
+					atualizarCampos(tabela.getSelectedRow());
+				} else {
+					txtQtd.setEditable(false);
+				}
 			}
 		});
 		scrollPane.setViewportView(tabela);
@@ -93,12 +98,12 @@ public class TelaVenda extends JDialog implements ActionListener {
 		contentPane.add(panelDown);
 		panelDown.setLayout(null);
 
-		JLabel lblTotalR = new JLabel("TOTAL R$: ");
+		JLabel lblTotalR = new JLabel("TOTAL:");
 		lblTotalR.setBounds(415, 0, 200, 50);
 		panelDown.add(lblTotalR);
 		lblTotalR.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTotalR.setForeground(Color.WHITE);
-		lblTotalR.setFont(new Font("Tahoma", Font.PLAIN, 38));
+		lblTotalR.setFont(new Font("Tahoma", Font.PLAIN, 30));
 
 		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -106,10 +111,10 @@ public class TelaVenda extends JDialog implements ActionListener {
 		btnFinalizar.addActionListener(this);
 		panelDown.add(btnFinalizar);
 
-		JLabel lblTotal = new JLabel("0,00");
+		lblTotal = new JLabel("0,00");
 		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTotal.setForeground(new Color(255, 255, 255));
-		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 36));
+		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblTotal.setBounds(600, 1, 200, 50);
 		panelDown.add(lblTotal);
 
@@ -121,6 +126,7 @@ public class TelaVenda extends JDialog implements ActionListener {
 		txtCodBarras = new JTextField();
 		txtCodBarras.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtCodBarras.setBounds(195, 80, 320, 30);
+		txtCodBarras.addActionListener(this);
 		contentPane.add(txtCodBarras);
 
 		JLabel lblQtd = new JLabel("Quantidade: ");
@@ -137,27 +143,34 @@ public class TelaVenda extends JDialog implements ActionListener {
 		contentPane.add(txtQtd);
 		txtQtd.setColumns(10);
 
-		JLabel lblRetirar = new JLabel("Retirar");
+		lblRetirar = new JLabel("Retirar");
 		lblRetirar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblRetirar.setBounds(645, 470, 60, 30);
+		lblRetirar.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (tabela.getSelectedRow() >= 0) {
+					removerItemVenda();
+				}
+			}
+		});
 		contentPane.add(lblRetirar);
 
 		ImageIcon imgRetirarIcon = new ImageIcon(
 				new ImageIcon("img/x.png").getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
-		JLabel imgRetirar = new JLabel(imgRetirarIcon);
+		imgRetirar = new JLabel(imgRetirarIcon);
 		imgRetirar.setBounds(700, 470, 35, 35);
 		imgRetirar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (tabela.getSelectedRow() >= 0) {
-					controller.removerItemVenda(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 1)));
+					removerItemVenda();
 				}
 			}
 		});
 		contentPane.add(imgRetirar);
 
 		lblNome = new JLabel("Nome...");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNome.setBounds(20, 470, 115, 30);
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNome.setBounds(20, 470, 260, 30);
 		contentPane.add(lblNome);
 	}
 
@@ -176,13 +189,36 @@ public class TelaVenda extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == txtQtd) {
-			System.out.println("Apertou enter no txtQtd");
 			if (tabela.getSelectedRow() >= 0) {
 				controller.alterarQuantidade(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 1)),
 						Integer.parseInt(txtQtd.getText()));
+				atualizarTotal();
 			}
 		} else if (e.getSource() == btnFinalizar) {
 			controller.finalizarVenda();
+			limparTela();
+		} else if (e.getSource() == txtCodBarras) {
+			adicionarItemVenda();
 		}
+	}
+
+	public void removerItemVenda() {
+		controller.removerItemVenda(String.valueOf(tabela.getValueAt(tabela.getSelectedRow(), 1)));
+		atualizarTotal();
+	}
+
+	public void adicionarItemVenda() {
+		controller.adicionarItemVenda(txtCodBarras.getText());
+		atualizarTotal();
+		txtCodBarras.setText("");
+	}
+
+	public void atualizarTotal() {
+		lblTotal.setText("R$" + String.valueOf(new DecimalFormat("#.##").format(controller.calcularTotal())));
+	}
+
+	public void limparTela() {
+		txtCodBarras.setText("");
+		atualizarTabela();
 	}
 }

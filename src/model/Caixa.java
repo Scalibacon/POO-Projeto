@@ -1,15 +1,18 @@
 package model;
 
-import javax.swing.JDialog;
-
-import view.TelaVenda;
+import dao.DAOException;
+import dao.VendaDAO;
+import dao.VendaDAOImpl;
 
 public class Caixa extends Estoquista{
 	
-	public void realizarVenda(){
-		JDialog tela_venda = new TelaVenda();
-		tela_venda.setModal(true);
-		tela_venda.setVisible(true);
+	public void realizarVenda(Venda v){
+		VendaDAO venDAO = new VendaDAOImpl();
+		try {
+			venDAO.inserirVenda(v);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

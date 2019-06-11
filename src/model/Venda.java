@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import dao.DAOException;
@@ -12,8 +12,8 @@ public class Venda {
 
 	private int id;
 	private double total;
-	private Date data;
-	private String funcionario;
+	private Calendar data;
+	private Estoquista funcionario;
 	private SituacaoVenda situacao;
 	private List<ItemVenda> listaItens = new ArrayList<ItemVenda>();
 
@@ -33,11 +33,11 @@ public class Venda {
 		this.total = total;
 	}
 
-	public Date getData() {
+	public Calendar getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
 
@@ -49,12 +49,11 @@ public class Venda {
 		return situacao;
 	}
 
-
-	public String getFuncionario() {
+	public Estoquista getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(String funcionario) {
+	public void setFuncionario(Estoquista funcionario) {
 		this.funcionario = funcionario;
 	}
 
@@ -67,6 +66,7 @@ public class Venda {
 	}
 
 	public double calcularTotal() {
+		this.total = 0;
 		for (ItemVenda iv : this.getListaItens()) {
 			this.total += iv.getProduto().getPreco() * iv.getQuantidade_produto();
 		}
@@ -113,6 +113,7 @@ public class Venda {
 		for (ItemVenda iv : this.listaItens) {
 			if (iv.getProduto().getCod_barras().equals(cod_bar)) {
 				iv.setQuantidade_produto(novaQtd);
+				iv.calcularSubtotal();
 				return true;
 			}
 		}

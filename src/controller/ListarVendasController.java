@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -13,9 +14,9 @@ import model.Administrador;
 import model.ItemVenda;
 import model.Venda;
 
-public class ListarVendasController extends AbstractTableModel{
+public class ListarVendasController extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
-	private String[] colunas = { "ID", "Data", "Funcionário", "Status", "Total"};
+	private String[] colunas = { "ID", "Data", "Funcionário", "Status", "Total" };
 	private List<Venda> vendas;
 	private final int COLUNA_ID = 0;
 	private final int COLUNA_DATA = 1;
@@ -37,26 +38,26 @@ public class ListarVendasController extends AbstractTableModel{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void excluirVenda(int row) {
 		int id_venda = (int) getValueAt(row, 1);
-		if(Help.logado instanceof Administrador) {
+		if (Help.logado instanceof Administrador) {
 			((Administrador) Help.logado).excluirVenda(id_venda);
 		}
 		atualizarListaVendas();
 		fireTableDataChanged();
 	}
-	
+
 	public Venda buscarVenda(int id) {
 		for (Venda v : this.vendas) {
-			if (v.getId() == id){
+			if (v.getId() == id) {
 				return v;
 			}
 		}
 		return null;
 	}
-	
-	public List<ItemVenda> buscarItemVenda(int id_venda){
+
+	public List<ItemVenda> buscarItemVenda(int id_venda) {
 		ivDAO = new ItemVendaDAOImpl();
 		try {
 			return ivDAO.buscarItemVenda(id_venda);
@@ -88,9 +89,11 @@ public class ListarVendasController extends AbstractTableModel{
 		case COLUNA_ID:
 			return ven.getId();
 		case COLUNA_DATA:
-			return ven.getData();
+			String data = ven.getData().get(Calendar.DAY_OF_MONTH) + "/" + (ven.getData().get(Calendar.MONTH) + 1)
+					+ "/" + ven.getData().get(Calendar.YEAR);
+			return data;
 		case COLUNA_FUNCIONARIO:
-			return ven.getFuncionario();
+			return ven.getFuncionario().getNome();
 		case COLUNA_STATUS:
 			return ven.getSituacao();
 		case COLUNA_TOTAL:
@@ -100,5 +103,4 @@ public class ListarVendasController extends AbstractTableModel{
 		return null;
 	}
 
-	
 }

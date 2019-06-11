@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -158,8 +159,10 @@ public class TelaListarVendas extends JDialog implements ActionListener{
 	public void carregarDetail(int rowla) {
 		Venda v = controller.buscarVenda(Integer.parseInt(tabela.getValueAt(rowla, 0).toString()));
 		txtID.setText(String.valueOf(v.getId()));
-		txtData.setText(v.getData().toString());
-		txtFuncionario.setText(v.getFuncionario());
+		String data = v.getData().get(Calendar.DAY_OF_MONTH) + "/" + (v.getData().get(Calendar.MONTH) + 1)
+				+ "/" + v.getData().get(Calendar.YEAR);
+		txtData.setText(data);
+		txtFuncionario.setText(v.getFuncionario().getNome());
 		txtTotal.setText(String.valueOf(v.getTotal()));;
 		txtSituacao.setText(v.getSituacao().name());
 		
