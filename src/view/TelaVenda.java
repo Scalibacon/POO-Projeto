@@ -219,6 +219,8 @@ public class TelaVenda extends JDialog implements ActionListener {
 
 	public void limparTela() {
 		txtCodBarras.setText("");
+		txtQtd.setText("");
+		lblTotal.setText("0,00");
 		atualizarTabela();
 	}
 }

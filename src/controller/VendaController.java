@@ -42,6 +42,7 @@ public class VendaController extends AbstractTableModel{
 			v.setSituacao(SituacaoVenda.CONCLUIDA);
 			v.setFuncionario(Help.logado);
 			((Caixa) Help.logado).realizarVenda(v);
+			v.subtrairVendaDoEstoque();
 		}
 		System.out.println("Venda realizada com sucesso");
 	}

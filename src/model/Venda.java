@@ -122,6 +122,14 @@ public class Venda {
 	}
 
 	public void subtrairVendaDoEstoque() {
+		ProdutoDAO proDAO = new ProdutoDAOImpl();
+		for (ItemVenda iv : this.listaItens) {
+			try {
+				proDAO.removerDoEstoque(iv.getProduto().getCod_barras(), iv.getQuantidade_produto());
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 

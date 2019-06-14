@@ -29,7 +29,7 @@ create table produto(
 	nome varchar(50) not null,
 	categoria int not null default(0),
 	preco decimal(7,2) not null check(preco > 0),
-	qtde_estoque int not null check(qtde_estoque >= 0),
+	qtde_estoque int not null,
 	descricao varchar(max),
 	primary key (codigo_barras)
 )

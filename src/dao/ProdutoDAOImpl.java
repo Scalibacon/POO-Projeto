@@ -126,4 +126,19 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 		}
 	}
 
+	@Override
+	public void removerDoEstoque(String cod_barras, int qtde) throws DAOException {
+		try {
+			Connection conexao = ConnectionDB.getInstancia().conectar();
+			String sql = "update produto set qtde_estoque = qtde_estoque - ? where codigo_barras = ?";
+			PreparedStatement stm = conexao.prepareStatement(sql);
+			stm.setInt(1, qtde);
+			stm.setString(2, cod_barras);
+			stm.executeUpdate();
+			conexao.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

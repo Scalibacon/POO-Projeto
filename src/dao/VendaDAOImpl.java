@@ -76,7 +76,8 @@ public class VendaDAOImpl implements VendaDAO{
 			
 			conexao.close();
 			ItemVendaDAO ivDAO = new ItemVendaDAOImpl();
-			ivDAO.incluirItemVenda(v.getListaItens(), v.getId());
+			ivDAO.incluirItemVenda(v.getListaItens(), v.getId());			
+			
 		} catch (SQLException e) {
 			DAOException.mensagemConflitoPrimaryKey("ID da venda");
 			e.printStackTrace();
