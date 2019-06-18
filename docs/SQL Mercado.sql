@@ -49,6 +49,9 @@ values('0004', 'Queijo Mussarela', 5, 26.95, 50, 'Gostoso e bem amarelinho')
 insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
 values('0005', 'Papel Higiênico Neve 12', 4, 13.99, 38, 'Bem macio, perfeito pra dar aquela garibada nos glúteos')
 
+insert into produto(codigo_barras, nome, categoria, preco, qtde_estoque, descricao) 
+values('0010', 'Paçoquinha 50g', 5, 2.99, 7, 'Não sei se é salgado ou doce')
+
 create table venda(
 	id int identity(1,1) not null,
 	dataCompra datetime not null,
@@ -126,3 +129,8 @@ on iv.venda_id = v.id
 where v.dataCompra between '2019/05/10' and '2019/05/15' 
 group by p.codigo_barras, p.nome
 order by qtde_comprada asc, p.nome asc
+
+SET DATEFORMAT ymd;
+select sum(v.total) as total
+from venda v
+where v.dataCompra between '2019/05/10' and '2019/05/15' 
