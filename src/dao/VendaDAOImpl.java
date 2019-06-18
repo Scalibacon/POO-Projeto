@@ -9,20 +9,20 @@ import java.util.Calendar;
 import java.util.List;
 
 import model.Estoquista;
+import model.Produto;
+import model.ProdutoMaisVendido;
 import model.SituacaoVenda;
 import model.Venda;
 
-public class VendaDAOImpl implements VendaDAO{
+public class VendaDAOImpl implements VendaDAO {
 
 	@Override
 	public List<Venda> buscarTodasVendas() throws DAOException {
 		try {
 			List<Venda> vendas = new ArrayList<Venda>();
 			Connection conexao = ConnectionDB.getInstancia().conectar();
-			String sql = "SELECT v.id, v.dataCompra, v.situacao, v.total, f.nome, f.cpf " + 
-					"FROM venda v " + 
-					"INNER JOIN funcionario f " + 
-					"ON v.funcionario_cpf = f.cpf";
+			String sql = "SELECT v.id, v.dataCompra, v.situacao, v.total, f.nome, f.cpf " + "FROM venda v "
+					+ "INNER JOIN funcionario f " + "ON v.funcionario_cpf = f.cpf";
 			PreparedStatement stm = conexao.prepareStatement(sql);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
@@ -41,8 +41,8 @@ public class VendaDAOImpl implements VendaDAO{
 			}
 			conexao.close();
 			return vendas;
-		} catch (SQLException e) {			
-			e.printStackTrace();			
+		} catch (SQLException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -53,31 +53,30 @@ public class VendaDAOImpl implements VendaDAO{
 	}
 
 	@Override
-	public void inserirVenda(Venda v) throws DAOException {		
+	public void inserirVenda(Venda v) throws DAOException {
 		try {
 			Connection conexao = ConnectionDB.getInstancia().conectar();
-			String sql = "insert into venda(dataCompra, situacao, total, funcionario_cpf) " + 
-					"values(?, ?, ?, ?)";
+			String sql = "insert into venda(dataCompra, situacao, total, funcionario_cpf) " + "values(?, ?, ?, ?)";
 			PreparedStatement stm = conexao.prepareStatement(sql);
-			
+
 			stm.setDate(1, new java.sql.Date(v.getData().getTimeInMillis()));
 			stm.setInt(2, v.getSituacao().getValor());
 			stm.setDouble(3, v.getTotal());
-			stm.setString(4, v.getFuncionario().getCpf());			
+			stm.setString(4, v.getFuncionario().getCpf());
 
 			stm.executeUpdate();
 			System.out.println("Venda inserida com sucesso");
-			
+
 			sql = "SELECT MAX(id) as id FROM venda";
 			stm = conexao.prepareStatement(sql);
 			ResultSet rs = stm.executeQuery();
-			if(rs.next())
+			if (rs.next())
 				v.setId(rs.getInt("id"));
-			
+
 			conexao.close();
 			ItemVendaDAO ivDAO = new ItemVendaDAOImpl();
-			ivDAO.incluirItemVenda(v.getListaItens(), v.getId());			
-			
+			ivDAO.incluirItemVenda(v.getListaItens(), v.getId());
+
 		} catch (SQLException e) {
 			DAOException.mensagemConflitoPrimaryKey("ID da venda");
 			e.printStackTrace();
@@ -86,17 +85,57 @@ public class VendaDAOImpl implements VendaDAO{
 
 	@Override
 	public void alterarVenda(int id) throws DAOException {
-		
+
 	}
 
 	@Override
 	public void excluirVenda(int id) throws DAOException {
-		
+
 	}
 
 	@Override
 	public List<Venda> buscarVendasPorPeriodo(Calendar inicio, Calendar fim) throws DAOException {
 		return null;
+	}
+
+	@Override
+	public List<ProdutoMaisVendido> buscarProdutosMaisVendidos(Calendar inicio, Calendar fim)  throws DAOException{
+
+		List<ProdutoMaisVendido> mais_vendidos = new ArrayList<ProdutoMaisVendido>();
+		try {
+			Connection conexao = ConnectionDB.getInstancia().conectar();
+			String sql = "SET DATEFORMAT ymd; " + 
+					"select top 5 p.codigo_barras, p.nome, count(v.id) as vezes_comprado, sum(iv.qtde_produto) as qtde_comprada " + 
+					"from produto p " + 
+					"inner join itemvenda iv " + 
+					"on p.codigo_barras = iv.produto_codigo_barras " + 
+					"inner join venda v " + 
+					"on iv.venda_id = v.id " + 
+					"where v.dataCompra between ? and ? " + 
+					"group by p.codigo_barras, p.nome " +
+					"order by qtde_comprada asc, p.nome asc ";
+			PreparedStatement stm = conexao.prepareStatement(sql);
+			stm.setDate(1, new java.sql.Date(inicio.getTimeInMillis()));
+			stm.setDate(2, new java.sql.Date(fim.getTimeInMillis()));
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				ProdutoMaisVendido pmv = new ProdutoMaisVendido();
+				Produto p = new Produto();
+				p.setNome(rs.getString("nome"));
+				p.setCod_barras(rs.getString("codigo_barras"));
+				pmv.setVezes_comprado(rs.getInt("vezes_comprado"));
+				pmv.setQtde_comprada(rs.getInt("qtde_comprada"));
+				pmv.setProduto(p);
+				mais_vendidos.add(pmv);
+				System.out.println(p.getCod_barras() + " - " + p.getNome() + " - " + pmv.getVezes_comprado() + " - " + pmv.getQtde_comprada());
+			}
+			
+		} catch (SQLException e) {
+			DAOException.mensagemConflitoPrimaryKey("ID da venda");
+			e.printStackTrace();
+		}
+		
+		return mais_vendidos;
 	}
 
 }

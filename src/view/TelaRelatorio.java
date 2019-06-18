@@ -5,26 +5,42 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JTabbedPane;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
 
 import com.toedter.calendar.JDateChooser;
 
-public class TelaRelatorio extends JDialog {
+import controller.RelatorioController;
+import model.ProdutoMaisVendido;
+
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+
+public class TelaRelatorio extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton btnBuscarEstoque, btnBuscarVendas;
 	private JDateChooser dataInicialEstoque, dataFimEstoque, dataInicialVenda, dataFimVenda;
 	private JFreeChart grafico;
+	private ChartPanel panelGraficoVendas, panelGraficoEstoque;
+	private RelatorioController controller = new RelatorioController();
 
 	public TelaRelatorio() {
+
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -69,14 +85,29 @@ public class TelaRelatorio extends JDialog {
 		dataFimVenda.setBounds(10, 118, 160, 27);
 		panelVendas.add(dataFimVenda);
 
-		// ****************************************************************
+		btnBuscarVendas = new JButton("Buscar");
+		btnBuscarVendas.setBounds(45, 175, 90, 25);
+		btnBuscarVendas.addActionListener(this);
+		panelVendas.add(btnBuscarVendas);
+
+		panelGraficoVendas = new ChartPanel(grafico);
+		panelGraficoVendas.setBounds(188, 10, 500, 300);
+		panelVendas.add(panelGraficoVendas);
+		
+		JLabel lblNewLabel = new JLabel("Faturamento Total do Per\u00EDodo");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(188, 325, 500, 25);
+		panelVendas.add(lblNewLabel);
+
+		// ******************** ESTOQUE ************************************
 
 		JPanel panelEstoque = new JPanel();
 		panelEstoque.setBackground(Color.WHITE);
 		tabbedPane.addTab("Estoque", null, panelEstoque, null);
 		panelEstoque.setLayout(null);
 
-		JLabel lblEstoqueDataInicio = new JLabel("Data In\u00EDcio");
+		JLabel lblEstoqueDataInicio = new JLabel("Data Início");
 		lblEstoqueDataInicio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblEstoqueDataInicio.setBounds(10, 10, 100, 25);
 
@@ -95,33 +126,45 @@ public class TelaRelatorio extends JDialog {
 		dataFimEstoque.setBounds(10, 118, 160, 27);
 		panelEstoque.add(dataFimEstoque);
 
-		geraGrafico();
-		add(getGrafico());
-		
-		ChartPanel chPanel = new ChartPanel(grafico);
-		chPanel.setBounds(100, 80, 500, 3000);
-		panelEstoque.add(chPanel);
-;	}
+		btnBuscarEstoque = new JButton("Buscar");
+		btnBuscarEstoque.setBounds(45, 175, 90, 25);
+		btnBuscarEstoque.addActionListener(this);
+		panelEstoque.add(btnBuscarEstoque);
 
-	public void geraGrafico() {
-		XYSeries produtos = new XYSeries("Produto");
-		produtos.add(1995, 0.5);
-		produtos.add(2000, 3.0);
-		produtos.add(2010, 20.0);
-		produtos.add(2020, 50.0);
-		XYDataset produtosEmLinhas = new XYSeriesCollection(produtos);
+		panelGraficoEstoque = new ChartPanel(grafico);
+		panelGraficoEstoque.setBounds(188, 10, 500, 300);
+		panelEstoque.add(panelGraficoEstoque);
 
-		grafico = ChartFactory.createXYAreaChart("Produtos Mais Vendidos", "Nome", "Quantidade", produtosEmLinhas,
-				org.jfree.chart.plot.PlotOrientation.VERTICAL, true, false, false);
-
-		try {
-			ChartUtilities.saveChartAsJPEG(new java.io.File("GráficoProdutosMaisVendidos.jpg"), grafico, 500, 300);
-		} catch (java.io.IOException e) {
-			e.printStackTrace();
-		}
 	}
 
-	public JPanel getGrafico() {
-		return new ChartPanel(grafico);
+	public void geraGraficoVendas(List<ProdutoMaisVendido> mais_vendidos) {
+		DefaultPieDataset dataset = new DefaultPieDataset();
+
+		for (ProdutoMaisVendido pmv : mais_vendidos) {
+			dataset.setValue(pmv.getProduto().getNome(), pmv.getQtde_comprada());
+		}
+
+		grafico = ChartFactory.createPieChart("Top 5 Produtos Mais Vendidos", dataset, true, true, false);
+
+		PiePlot plot = (PiePlot) grafico.getPlot();
+		plot.setSimpleLabels(true);
+
+		PieSectionLabelGenerator gen = new StandardPieSectionLabelGenerator(
+				/* com porcentagem"{0}: {1} ({2})" */"{0}: {1}", new DecimalFormat("0"), new DecimalFormat("0%"));
+		plot.setLabelGenerator(gen);
+
+		panelGraficoVendas.setChart(grafico);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBuscarVendas) {
+			System.out.println(dataInicialVenda.getCalendar().getTime());
+			List<ProdutoMaisVendido> mais_vendidos = new ArrayList<ProdutoMaisVendido>();
+			mais_vendidos = controller.buscarProdutosMaisVendidos(dataInicialVenda.getCalendar(),
+					dataFimVenda.getCalendar());
+			geraGraficoVendas(mais_vendidos);
+		}
 	}
 }

@@ -3,6 +3,7 @@ package dao;
 import java.util.Calendar;
 import java.util.List;
 
+import model.ProdutoMaisVendido;
 import model.Venda;
 
 public interface VendaDAO {
@@ -16,5 +17,8 @@ public interface VendaDAO {
 
 	void excluirVenda(int id) throws DAOException;
 	
-	List<Venda> buscarVendasPorPeriodo(Calendar inicio, Calendar fim) throws DAOException;
+	List<Venda> buscarVendasPorPeriodo(Calendar inicio, Calendar fim) throws DAOException;	
+	
+	public List<ProdutoMaisVendido> buscarProdutosMaisVendidos(Calendar inicio, Calendar fim) throws DAOException;
+	
 }

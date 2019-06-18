@@ -60,7 +60,7 @@ create table venda(
 )
 
 insert into venda(dataCompra, situacao, total, funcionario_cpf)
-values(getdate(), 1, 150, 12312312312)
+values('2019/05/15', 0, 105, 12312312312)
 
 select v.id, v.dataCompra, v.situacao, v.total, f.nome
 from venda v
@@ -79,6 +79,8 @@ create table itemvenda(
 
 insert into itemvenda(venda_id, produto_codigo_barras, qtde_produto, subtotal) 
 	values (1, '0003', 3, 12)
+	insert into itemvenda(venda_id, produto_codigo_barras, qtde_produto, subtotal) 
+	values (6, '0006', 1, 13)
 
 SELECT iv.produto_codigo_barras, iv.qtde_produto, iv.subtotal, p.nome 
 					FROM itemvenda iv INNER JOIN produto p 
@@ -109,5 +111,18 @@ inner join produto p
 on ae.produto_codigo_barras = p.codigo_barras
 
 select * from produto
+select * from venda
 select * from itemvenda
 select * from alteracaoestoque
+
+
+SET DATEFORMAT ymd; 
+select top 5 p.codigo_barras, p.nome, count(v.id) as vezes_comprado, sum(iv.qtde_produto) as qtde_comprada
+from produto p
+inner join itemvenda iv
+on p.codigo_barras = iv.produto_codigo_barras
+inner join venda v
+on iv.venda_id = v.id
+where v.dataCompra between '2019/05/10' and '2019/05/15' 
+group by p.codigo_barras, p.nome
+order by qtde_comprada asc, p.nome asc

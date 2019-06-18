@@ -1,0 +1,17 @@
+JFreeChart em gráfico + gerar imagem
+
+XYSeries produtos = new XYSeries("Produto");
+		produtos.add(1995, 0.5);
+		produtos.add(2000, 3.0);
+		produtos.add(2010, 20.0);
+		produtos.add(2020, 50.0);
+		XYDataset produtosEmLinhas = new XYSeriesCollection(produtos);
+
+		grafico = ChartFactory.createXYAreaChart("Produtos Mais Vendidos", "Nome", "Quantidade", produtosEmLinhas,
+				org.jfree.chart.plot.PlotOrientation.VERTICAL, true, false, false);
+
+		try {
+			ChartUtilities.saveChartAsJPEG(new java.io.File("GráficoProdutosMaisVendidos.jpg"), grafico, 500, 300);
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
