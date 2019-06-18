@@ -18,5 +18,7 @@ public interface ProdutoDAO {
 	void removerDoEstoque(String cod_barras, int qtde) throws DAOException;
 	
 	public void adicionarAoEstoque(String cod_barras, int qtde) throws DAOException;
+	
+	public List<Produto> buscarFaltando() throws DAOException;
 
 }

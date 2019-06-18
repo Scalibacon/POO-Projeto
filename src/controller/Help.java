@@ -7,4 +7,6 @@ public class Help {
 
 	public static Estoquista logado = new Administrador();
 	
+	public static boolean abriuProdutosEmFalta = false;
+	
 }

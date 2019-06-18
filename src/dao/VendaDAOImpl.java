@@ -138,4 +138,28 @@ public class VendaDAOImpl implements VendaDAO {
 		return mais_vendidos;
 	}
 
+	@Override
+	public double buscarTotalVendasPorPeriodo(Calendar inicio, Calendar fim) throws DAOException {
+		double total = 0;
+		
+		try {
+			Connection conexao = ConnectionDB.getInstancia().conectar();
+			String sql = "SET DATEFORMAT ymd; " + 
+					"select sum(v.total) as total " + 
+					"from venda v " + 
+					"where v.dataCompra between ? and ? ";
+			PreparedStatement stm = conexao.prepareStatement(sql);
+			stm.setDate(1, new java.sql.Date(inicio.getTimeInMillis()));
+			stm.setDate(2, new java.sql.Date(fim.getTimeInMillis()));
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()) {
+				total = rs.getDouble("total");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return total;
+	}
+
 }

@@ -32,6 +32,7 @@ import javax.swing.SwingConstants;
 public class TelaRelatorio extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+	private JLabel lblTotalPeriodo;
 	private JPanel contentPane;
 	private JButton btnBuscarEstoque, btnBuscarVendas;
 	private JDateChooser dataInicialEstoque, dataFimEstoque, dataInicialVenda, dataFimVenda;
@@ -93,18 +94,18 @@ public class TelaRelatorio extends JDialog implements ActionListener {
 		panelGraficoVendas = new ChartPanel(grafico);
 		panelGraficoVendas.setBounds(188, 10, 500, 300);
 		panelVendas.add(panelGraficoVendas);
-		
-		JLabel lblNewLabel = new JLabel("Faturamento Total do Per\u00EDodo");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(188, 325, 500, 25);
-		panelVendas.add(lblNewLabel);
+
+		lblTotalPeriodo = new JLabel("Faturamento Total do Período");
+		lblTotalPeriodo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTotalPeriodo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTotalPeriodo.setBounds(188, 325, 500, 25);
+		panelVendas.add(lblTotalPeriodo);
 
 		// ******************** ESTOQUE ************************************
 
 		JPanel panelEstoque = new JPanel();
 		panelEstoque.setBackground(Color.WHITE);
-		tabbedPane.addTab("Estoque", null, panelEstoque, null);
+		tabbedPane.addTab("Funcionários", null, panelEstoque, null);
 		panelEstoque.setLayout(null);
 
 		JLabel lblEstoqueDataInicio = new JLabel("Data Início");
@@ -154,6 +155,8 @@ public class TelaRelatorio extends JDialog implements ActionListener {
 		plot.setLabelGenerator(gen);
 
 		panelGraficoVendas.setChart(grafico);
+		lblTotalPeriodo.setText("Faturamento Total do Período = R$"
+				+ controller.buscaTotalPeriodo(dataInicialVenda.getCalendar(), dataFimVenda.getCalendar()));
 
 	}
 

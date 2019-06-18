@@ -20,4 +20,15 @@ public class RelatorioController {
 		}
 		return mais_vendidos;
 	}
+	
+	public double buscaTotalPeriodo(Calendar inicio, Calendar fim){
+		VendaDAO venDAO = new VendaDAOImpl();
+		try {
+			double total = venDAO.buscarTotalVendasPorPeriodo(inicio, fim);
+			return total;
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

@@ -156,4 +156,26 @@ public class ProdutoDAOImpl implements ProdutoDAO {
 		}
 	}
 
+	@Override
+	public List<Produto> buscarFaltando() throws DAOException {
+		List<Produto> produtos = new ArrayList<Produto>();
+		try {
+			Connection conexao = ConnectionDB.getInstancia().conectar();
+			String sql = "SELECT codigo_barras, nome, qtde_estoque FROM produto WHERE qtde_estoque <= 10";
+			PreparedStatement stm = conexao.prepareStatement(sql);
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				Produto produto = new Produto();
+				produto.setNome(rs.getString("nome"));
+				produto.setCod_barras(rs.getString("codigo_barras"));
+				produto.setQuantidade_estoque(rs.getInt("qtde_estoque"));
+				produtos.add(produto);
+			}
+			conexao.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return produtos;
+	}
+
 }

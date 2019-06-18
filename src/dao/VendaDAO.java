@@ -19,6 +19,8 @@ public interface VendaDAO {
 	
 	List<Venda> buscarVendasPorPeriodo(Calendar inicio, Calendar fim) throws DAOException;	
 	
+	double buscarTotalVendasPorPeriodo(Calendar inicio, Calendar fim) throws DAOException;	
+	
 	public List<ProdutoMaisVendido> buscarProdutosMaisVendidos(Calendar inicio, Calendar fim) throws DAOException;
 	
 }

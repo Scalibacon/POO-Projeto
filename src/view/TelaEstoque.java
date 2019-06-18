@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import controller.EstoqueController;
+import controller.Help;
 import model.Produto;
 
 import javax.swing.JLabel;
@@ -179,6 +180,13 @@ public class TelaEstoque extends JDialog implements ActionListener {
 		txtDesc.setEditable(false);
 		txtDesc.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		scrollDesc.setViewportView(txtDesc);
+		
+		if(!Help.abriuProdutosEmFalta) {
+			JDialog tela = new TelaPoucosProdutos();
+			tela.setModal(true);
+			tela.setVisible(true);
+			Help.abriuProdutosEmFalta = true;
+		}
 
 	}
 
