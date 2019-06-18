@@ -63,10 +63,12 @@ public class TelaEstoque extends JDialog implements ActionListener {
 				if (tabela.getSelectedRow() >= 0) {
 					btnAlterar.setEnabled(true);
 					btnExcluir.setEnabled(true);
+					btnEstocar.setEnabled(true);
 					carregarDetail(tabela.getSelectedRow());
 				} else {
 					btnAlterar.setEnabled(false);
 					btnExcluir.setEnabled(false);
+					btnEstocar.setEnabled(false);
 				}
 			}
 		});
@@ -75,6 +77,8 @@ public class TelaEstoque extends JDialog implements ActionListener {
 
 		btnEstocar = new JButton("Estocar");
 		btnEstocar.setBounds(220, 80, 90, 25);
+		btnEstocar.setEnabled(false);
+		btnEstocar.addActionListener(this);
 		painel.add(btnEstocar);
 
 		btnAlterar = new JButton("Alterar");
@@ -204,6 +208,8 @@ public class TelaEstoque extends JDialog implements ActionListener {
 			if (JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir esse produto?") == 0) {
 				controller.excluirProduto(tabela.getSelectedRow());
 			}
+		} else if (e.getSource() == btnEstocar) {
+			controller.estocarProduto(tabela.getValueAt(tabela.getSelectedRow(), 4).toString());
 		}
 	}
 

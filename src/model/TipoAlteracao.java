@@ -19,6 +19,10 @@ public enum TipoAlteracao {
 		tipoAlteracao = tipo;
 	}
 	
+	public int getValor() {
+		return tipoAlteracao;
+	}
+	
 	public static TipoAlteracao buscaTipoAlteracao(int valor) {
 		TipoAlteracao busca = map.get(valor);
 		if (busca == null) {

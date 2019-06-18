@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.table.AbstractTableModel;
 import model.Produto;
+import view.TelaAdicionarEstoque;
 import view.TelaCadastroProduto;
 
 public class EstoqueController extends AbstractTableModel {
@@ -42,6 +43,15 @@ public class EstoqueController extends AbstractTableModel {
 			tela_add_produto.setModal(true);
 			tela_add_produto.setVisible(true);
 		}
+		atualizarListaProdutos();
+		fireTableDataChanged();
+	}
+	
+	public void estocarProduto(String cod_barras){
+		Produto p = buscarProduto(cod_barras);
+		JDialog tela = new TelaAdicionarEstoque(p);
+		tela.setModal(true);
+		tela.setVisible(true);
 		atualizarListaProdutos();
 		fireTableDataChanged();
 	}

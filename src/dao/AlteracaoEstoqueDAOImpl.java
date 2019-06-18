@@ -25,7 +25,7 @@ public class AlteracaoEstoqueDAOImpl implements AlteracaoEstoqueDAO {
 			PreparedStatement stm = conexao.prepareStatement(sql);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
-				
+
 			}
 			conexao.close();
 			return alts;
@@ -42,7 +42,27 @@ public class AlteracaoEstoqueDAOImpl implements AlteracaoEstoqueDAO {
 
 	@Override
 	public void inserirAlteracao(AlteracaoEstoque ae) throws DAOException {
+		try {
+			Connection conexao = ConnectionDB.getInstancia().conectar();
+			String sql = "insert into alteracaoestoque(data_alter, tipo, quantidade, funcionario_cpf, produto_codigo_barras,"
+					+ "descricao) "
+					+ "values(?, ?, ?, ?, ?, ?)";
+			PreparedStatement stm = conexao.prepareStatement(sql);
+			stm.setDate(1, new java.sql.Date(ae.getData().getTimeInMillis()));
+			stm.setInt(2, ae.getTipoAlt().getValor());
+			stm.setInt(3, ae.getQuantidade());
+			stm.setString(4, ae.getAutor().getCpf());
+			stm.setString(5, ae.getProduto().getCod_barras());
+			stm.setString(6, ae.getDescricao());
 
+			stm.executeUpdate();
+			System.out.println("Alteração inserido com sucesso");
+			conexao.close();
+			
+		} catch (SQLException e) {
+			DAOException.mensagemConflitoPrimaryKey("Id");
+			e.printStackTrace();
+		}
 	}
 
 	@Override

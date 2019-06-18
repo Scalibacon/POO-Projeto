@@ -17,11 +17,11 @@ create table funcionario(
 )
 
 insert into funcionario(cpf, nome, senha, rua, numero, bairro, cidade, estado, cep, telefone, privilegio)
-	values('12312312312', 'Matheus F. Nascimento', '827ccb0eea8a706c4c34a16891f84e7b', 'Rua1', 123, 'Itaquera', 'São Paulo',
+	values('12312312312', 'Matheus F. Nascimento', 'b3ddbc502e307665f346cbd6e52cc10d', 'Rua1', 123, 'Itaquera', 'São Paulo',
 						'SP', 08240660, '11981116773', 2)
 
 insert into funcionario(cpf, nome, senha, rua, numero, bairro, cidade, estado, cep, telefone, privilegio)
-	values('32132132132', 'Evandson S. Cruz', '01cfcd4f6b8770febfb40cb906715822', 'Rua2', 321, 'Itaqua', 'São Paulo',
+	values('32132132132', 'Evandson S. Cruz', 'c4df13cad905bbff4cfd811606745cd8', 'Rua2', 321, 'Itaqua', 'São Paulo',
 						'SP', 32132132, '11321321321', 0)
 
 create table produto(
@@ -78,7 +78,7 @@ create table itemvenda(
 )
 
 insert into itemvenda(venda_id, produto_codigo_barras, qtde_produto, subtotal) 
-	values (4, '0003', 3, 12)
+	values (1, '0003', 3, 12)
 
 SELECT iv.produto_codigo_barras, iv.qtde_produto, iv.subtotal, p.nome 
 					FROM itemvenda iv INNER JOIN produto p 
@@ -92,13 +92,14 @@ create table alteracaoestoque(
 	quantidade int not null check(quantidade > 0),
 	funcionario_cpf char(11) not null,
 	produto_codigo_barras varchar(50) not null,
+	descricao varchar(255),
 	primary key (id),
 	foreign key (funcionario_cpf) references funcionario(cpf),
 	foreign key (produto_codigo_barras) references produto(codigo_barras)
 )
 
-insert into alteracaoestoque(data_alter, tipo, quantidade, funcionario_cpf, produto_codigo_barras)
-	values(getdate(), 0, 25, '12312312312', '0003')
+insert into alteracaoestoque(data_alter, tipo, quantidade, funcionario_cpf, produto_codigo_barras, descricao)
+	values(getdate(), 0, 25, '12312312312', '0003', null)
 
 select ae.data_alter, ae.tipo, ae.quantidade, f.nome, p.nome
 from alteracaoestoque ae
@@ -107,4 +108,6 @@ on ae.funcionario_cpf = f.cpf
 inner join produto p
 on ae.produto_codigo_barras = p.codigo_barras
 
+select * from produto
 select * from itemvenda
+select * from alteracaoestoque
