@@ -144,6 +144,9 @@ public class TelaMenu extends JFrame implements ActionListener {
 		JLabel lblVerificarVendas = new JLabel("Verificar Vendas");
 		lblVerificarVendas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVerificarVendas.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		if (!controller.verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
+			lblVerificarVendas.setForeground(new Color(135, 135, 135));
+		}
 		lblVerificarVendas.setBounds(426, 155, 125, 20);
 		if (!controller.verificaPrivilegio(Privilegio.ADMINISTRADOR)) {
 			lblVisualizarRelatrios.setForeground(new Color(133, 133, 133));

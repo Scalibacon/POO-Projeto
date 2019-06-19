@@ -83,7 +83,8 @@ create table itemvenda(
 insert into itemvenda(venda_id, produto_codigo_barras, qtde_produto, subtotal) 
 	values (1, '0003', 3, 12)
 	insert into itemvenda(venda_id, produto_codigo_barras, qtde_produto, subtotal) 
-	values (6, '0006', 1, 13)
+	values (1, '0005', 1, 13)
+	select * from itemvenda
 
 SELECT iv.produto_codigo_barras, iv.qtde_produto, iv.subtotal, p.nome 
 					FROM itemvenda iv INNER JOIN produto p 
